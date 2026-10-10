@@ -183,3 +183,5 @@ input:focus,textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 
 @media(prefers-reduced-motion:reduce){[data-pergola="draw"] .p-main,[data-pergola="draw"] .p-rafter,[data-pergola="draw"] .p-dim{stroke-dashoffset:0}[data-pergola="draw"] text{opacity:1}}
 
 [hidden]{display:none!important}
+
+.tools{margin-top:1.4rem;display:grid;gap:.7rem}
