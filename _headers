@@ -11,3 +11,12 @@
 
 /index.html
   Cache-Control: no-cache
+
+/pergola/
+  Cache-Control: no-cache
+
+/pergola/index.html
+  Cache-Control: no-cache
+
+/pergola/src/style.css
+  Cache-Control: no-cache
