@@ -1,4 +1,4 @@
-/* ===== CONFIG — everything editable lives here ===== */
+/* ===== CONFIG: everything editable lives here ===== */
 const CONFIG = {
   businessName: "WRD Media",
   email: "HwrdKan@gmail.com",
@@ -8,7 +8,6 @@ const CONFIG = {
   timezone: "America/Chicago",
   bookingWorkerUrl: "https://wrdmedia-booking.hwrdkan.workers.dev",
   bookingDaysAhead: 14,
-  photoFrames: false,            // set true after dropping assets/seq/001.webp..072.webp
   formEndpoint: "https://formsubmit.co/ajax/",  // + email
 };
 /* ===================================================== */
@@ -24,49 +23,138 @@ const fmtTime = iso => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timez
 const fmtDay = (iso, opts) => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timezone, ...opts }).format(new Date(iso));
 const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezone }).format(new Date(iso)); // YYYY-MM-DD
 
-/* ---------- Pergola line art + scroll-drawn build (signature move) ---------- */
-(function pergola() {
-  const NS = "http://www.w3.org/2000/svg";
-  const main = ["M180 420V170", "M620 420V170", "M340 310V60", "M780 310V60", "M180 170H620", "M340 60H780", "M180 170L340 60", "M620 170L780 60", "M180 420H620", "M620 420L780 310"];
-  const rafters = []; for (let x = 235; x < 620; x += 55) rafters.push("M" + x + " 170L" + (x + 160) + " 60");
-  const hidden = ["M180 420L340 310", "M340 310H780"];
-  const dims = ["M180 468H620", "M180 458V478", "M620 458V478", "M820 60V310", "M810 60H830", "M810 310H830"];
-  const mk = (cls, d, draw) => { const p = document.createElementNS(NS, "path"); p.setAttribute("class", cls); p.setAttribute("d", d); if (draw) p.setAttribute("pathLength", "1"); return p; };
-  const label = (x, y, t) => { const e = document.createElementNS(NS, "text"); e.setAttribute("x", x); e.setAttribute("y", y); e.textContent = t; return e; };
-  const els = [];
-  document.querySelectorAll("[data-pergola]").forEach(svg => {
-    const draw = svg.dataset.pergola === "draw", g = [];
-    hidden.forEach(d => svg.append(mk("p-hidden", d)));
-    main.forEach(d => { const p = mk("p-main", d, draw); svg.append(p); g.push(p); });
-    rafters.forEach(d => { const p = mk("p-rafter", d, draw); svg.append(p); g.push(p); });
-    if (draw) { dims.forEach(d => { const p = mk("p-dim", d, true); svg.append(p); g.push(p); });
-      const a = label(400, 462, "16 FT"), b = label(836, 190, "10 FT"); svg.append(a, b); els.push({ svg, g, texts: [a, b], section: svg.closest("section") }); }
-  });
-  if (!els.length) return;
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let queued = false;
+/* ---------- Logo: big in the hero, shrinks into the header on scroll ---------- */
+(function logo() {
+  const el = $("#logo"), slot = $("#logo-slot"), bar = $("#bar");
+  if (!el || !slot || !bar) return;
+  const RATIO = 1291 / 380, clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  let slotX, slotY0, endX, endY, endScale, dist;
+  function measure() {
+    const W = Math.min(innerWidth * 0.78, 560);
+    el.style.width = W + "px"; slot.style.width = W + "px";
+    const r = slot.getBoundingClientRect();
+    slotX = r.left; slotY0 = r.top + scrollY;
+    const tw = innerWidth < 760 ? 88 : 112;
+    endScale = tw / W;
+    endX = parseFloat(getComputedStyle($(".wrap")).paddingLeft) || 24;
+    endY = (bar.offsetHeight - tw / RATIO) / 2;
+    dist = Math.max(1, slotY0 - endY);
+    frame();
+  }
   function frame() {
-    queued = false;
-    els.forEach(o => {
-      const r = o.section.getBoundingClientRect(), vh = innerHeight;
-      const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-      const t = reduce ? 1 : clamp(p / 0.5, 0, 1);
-      o.g.forEach((path, i) => { const s = (i / o.g.length) * 0.6; path.style.strokeDashoffset = String(1 - clamp((t - s) / 0.4, 0, 1)); });
-      o.texts.forEach(x => { x.style.opacity = t > 0.92 ? 1 : 0; });
-      o.svg.style.opacity = o.section.classList.contains("has-frames") ? String(1 - clamp((p - 0.62) / 0.3, 0, 0.82)) : "1";
-    });
+    const y = scrollY, p = clamp(y / dist, 0, 1), e = p * p * (3 - 2 * p);
+    const s = 1 + (endScale - 1) * e, x = slotX + (endX - slotX) * e, yy = Math.max(slotY0 - y, endY);
+    el.style.transform = "translate3d(" + x + "px," + yy + "px,0) scale(" + s + ")";
+    el.style.setProperty("--dock", e.toFixed(3));
+    bar.classList.toggle("is-scrolled", y > 8);
   }
-  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
-  addEventListener("scroll", queue, { passive: true }); addEventListener("resize", queue); queue();
+  let q = false;
+  const queue = () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; frame(); }); } };
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", measure);
+  measure();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  addEventListener("load", measure);
+})();
 
-  // If the photographic frames exist, let them take over; otherwise the line art stands alone.
-  if (CONFIG.photoFrames) {
-    const cv = document.querySelector("canvas[data-seq]");
-    if (cv) cv.setAttribute("data-sc-sequence", cv.dataset.seq);
-    els.forEach(o => o.section.classList.add("has-frames"));
-    queue();
+/* ---------- Scroll reveal: fade-in-up and gold rules, nothing else ---------- */
+(function reveal() {
+  const els = [...document.querySelectorAll(".reveal, .rule")];
+  if (!("IntersectionObserver" in window)) { els.forEach(e => e.classList.add("in")); return; }
+  const io = new IntersectionObserver(list => list.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+  }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  els.forEach(e => io.observe(e));
+})();
+
+/* ---------- Infographics ---------- */
+(function infographics() {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Buyer filter funnel, built as two layouts so the text stays readable on phones.
+  const person = (cls, i, qx, qy, tx, ty, gx, gy) =>
+    '<g transform="translate(' + qx + ',' + qy + ')"><g class="pp ghost"><circle cx="0" cy="-10" r="7"/><path d="M-13 14a13 13 0 0 1 26 0z"/></g><g class="pi pi--' + cls + '" style="--i:' + i + ';--gx:' + (gx - qx) + 'px;--gy:' + (gy - qy) + 'px;--fx:' + (tx - qx) + 'px;--fy:' + (ty - qy) + 'px">' +
+    '<g class="pp"><circle cx="0" cy="-10" r="7"/><path d="M-13 14a13 13 0 0 1 26 0z"/></g></g></g>';
+  function funnel(cfg) {
+    let s = '<svg class="' + cfg.cls + '" viewBox="0 0 ' + cfg.w + ' ' + cfg.h + '" focusable="false">';
+    s += '<text class="t" x="' + cfg.shopX + '" y="' + cfg.shopY + '" text-anchor="' + cfg.shopA + '">shoppers</text>';
+    s += '<text class="t t--gold" x="' + cfg.buyX + '" y="' + cfg.buyY + '" text-anchor="' + cfg.buyA + '">pre-sold buyers</text>';
+    s += '<rect class="gate" x="' + (cfg.gx - 54) + '" y="' + (cfg.gy - 60) + '" width="108" height="120" rx="14"/>';
+    s += '<path class="cube" d="M' + (cfg.gx - 22) + ' ' + (cfg.gy - 4) + 'h32v32h-32z M' + (cfg.gx - 22) + ' ' + (cfg.gy - 4) + 'l14-14h32l-14 14 M' + (cfg.gx + 24) + ' ' + (cfg.gy - 18) + 'v32l-14 14"/>';
+    s += '<text class="t" x="' + cfg.gx + '" y="' + (cfg.gy + 87) + '" text-anchor="middle">sees it in 3D,</text>';
+    s += '<text class="t" x="' + cfg.gx + '" y="' + (cfg.gy + 108) + '" text-anchor="middle">agrees to price</text>';
+    let b = 0, r = 0;
+    cfg.roles.forEach((role, i) => {
+      const q = cfg.queue(i);
+      if (role === "b") { const f = cfg.buyer(b++); s += person("buyer", i, q[0], q[1], f[0], f[1], cfg.gx, cfg.gy); }
+      else { const f = cfg.reject(r++); s += person("reject", i, q[0], q[1], f[0], f[1], cfg.gx, cfg.gy); }
+    });
+    s += '<text class="t" x="' + cfg.rejX + '" y="' + cfg.rejY + '" text-anchor="middle">filtered out</text></svg>';
+    return s;
   }
+  const holder = $("[data-funnel]");
+  if (holder) {
+    holder.innerHTML =
+      funnel({ cls: "fun fun-d", w: 900, h: 372, gx: 450, gy: 165, shopX: 60, shopY: 78, shopA: "start", buyX: 650, buyY: 78, buyA: "start",
+        roles: "bbbrbbbbrb".split(""), queue: i => [60 + (i % 5) * 46, 130 + Math.floor(i / 5) * 64],
+        buyer: k => [650 + (k % 4) * 56, 130 + Math.floor(k / 4) * 64], reject: k => [392 + k * 52, 322], rejX: 418, rejY: 362 }) +
+      funnel({ cls: "fun fun-m", w: 360, h: 450, gx: 180, gy: 205, shopX: 180, shopY: 30, shopA: "middle", buyX: 130, buyY: 432, buyA: "middle",
+        roles: "bbrbb".split(""), queue: i => [50 + i * 65, 80],
+        buyer: k => [40 + k * 60, 385], reject: () => [310, 385], rejX: 310, rejY: 432 });
+  }
+
+  // Play when in view. Loops pause off screen; one-shots play once.
+  const loops = new Set(["funnel", "glass", "phone", "minichat"]);
+  const items = [...document.querySelectorAll("[data-info]")];
+  if (reduce || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(list => list.forEach(en => {
+    const kind = en.target.dataset.info;
+    if (en.isIntersecting) { en.target.classList.add("play"); if (!loops.has(kind)) io.unobserve(en.target); }
+    else if (loops.has(kind)) en.target.classList.remove("play");
+  }), { threshold: 0.3 });
+  items.forEach(e => io.observe(e));
+
+  // AI answer flip: replay on click or key
+  const flip = $(".flip");
+  if (flip) {
+    const replay = () => { flip.classList.remove("play"); void flip.offsetWidth; flip.classList.add("play"); };
+    flip.addEventListener("click", replay);
+    flip.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); replay(); } });
+  }
+
+  // Missed-call counter ticks up
+  const num = $("[data-count]"), card = num && num.closest("[data-info]");
+  if (num && card) {
+    const target = +num.dataset.count, prefix = num.dataset.prefix || "";
+    num.textContent = prefix + "0";
+    let ran = false;
+    new IntersectionObserver((l, o) => {
+      if (l[0].isIntersecting && !ran) {
+        ran = true; o.disconnect();
+        const t0 = performance.now(), dur = 1600;
+        (function tick(t) {
+          const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+          num.textContent = prefix + Math.round(target * e).toLocaleString("en-US");
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      }
+    }, { threshold: 0.4 }).observe(card);
+  }
+})();
+
+/* ---------- Offer cards: tap to expand on phones ---------- */
+(function offers() {
+  const mobile = () => matchMedia("(max-width: 759px)").matches;
+  document.querySelectorAll(".offer").forEach(card => {
+    const btn = card.querySelector(".offer__toggle");
+    if (!btn) return;
+    const set = open => { card.classList.toggle("is-collapsed", !open); btn.setAttribute("aria-expanded", String(open)); };
+    btn.addEventListener("click", e => { e.stopPropagation(); set(card.classList.contains("is-collapsed")); });
+    card.addEventListener("click", e => {
+      if (!mobile() || e.target.closest("a, button, input, textarea, .flip")) return;
+      set(card.classList.contains("is-collapsed"));
+    });
+  });
 })();
 
 /* ---------- Booking ---------- */
@@ -210,6 +298,3 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
       });
   });
 })();
-
-/* ---------- Scroll engine ---------- */
-if (window.ScrollCraft) ScrollCraft.mount(document.body);
