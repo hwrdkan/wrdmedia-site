@@ -5,7 +5,7 @@
 :root{
   --paper:#000;--ink:#fff;--muted:#C4C9D0;--line:rgba(255,255,255,.18);--line-strong:rgba(255,255,255,.4);
   --surface:#0B0B0C;--surface-hi:#17171A;
-  --accent:#E0A670;
+  --accent:#C8CDD5;
   --silver:#C8CDD5;
   --silver-grad:linear-gradient(135deg,#6a7078 0%,#ffffff 25%,#c8cdd5 50%,#ffffff 75%,#6a7078 100%);
   --bronze-grad:linear-gradient(135deg,#8a5a2b 0%,#ecc08f 25%,#b8773a 50%,#f6d3b0 75%,#9a6330 100%);

@@ -241,6 +241,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
 
 /* ---------- Booking ---------- */
 (function booking() {
+  if (!$("#b-days")) return;
   const days = $("#b-days"), times = $("#b-times"), form = $("#b-form"),
         done = $("#b-done"), fallback = $("#b-fallback"), err = $("#b-error"),
         chosen = $("#b-chosen"), submit = $("#b-submit");
@@ -350,6 +351,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
 
 /* ---------- Contact form ---------- */
 (function contact() {
+  if (!$("#c-form")) return;
   const form = $("#c-form"), msg = $("#c-msg"), btn = $("#c-submit");
   form.addEventListener("submit", e => {
     e.preventDefault();
