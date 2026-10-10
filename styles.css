@@ -358,7 +358,7 @@ input:focus,textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 
 .tryit__links{color:var(--ink-soft);font-size:.9375rem}
 .tryit__links a{color:#fff;font-weight:600}
 #offer-1{grid-template-areas:none}
-@media(min-width:760px){#offer-1{grid-template-areas:"head head" "fig fig" "try try" "more buy"}#offer-1>.tryit{grid-area:try}}
+@media(min-width:760px){#offer-1{grid-template-areas:"head head" "fig fig" "try try" "more buy"}#offer-1>.tryits{grid-area:try}}
 
 .partner{display:grid;gap:clamp(32px,5vw,64px);align-items:center}
 .partner__copy{display:grid;gap:24px;align-content:start}
@@ -372,3 +372,26 @@ input:focus,textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 
 /* stronger reveal on phones */
 @media(max-width:759px){.reveal{transform:translateY(32px) scale(.98)}.reveal.in{transform:none}}
 @media(prefers-reduced-motion:reduce){.progress{display:none}.reveal{transform:none}}
+
+.tryits{display:grid;gap:40px}
+.tryit__frame[data-tall="1"] iframe{height:clamp(760px,92vh,920px)}
+
+/* ---------- UX pass: tap targets, skip link, tool sheet, sticky CTA behavior ---------- */
+.skip{position:fixed;left:16px;top:-80px;z-index:200;padding:12px 20px;border-radius:var(--r);background:#fff;color:#000;font-weight:700;text-decoration:none;transition:top .15s}
+.skip:focus{top:12px}
+main:focus{outline:none}
+.btn--sm{font-size:.875rem}
+.foot nav{gap:8px 16px}
+.foot nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 4px}
+.tryit__links a,.direct a{display:inline-block;padding:12px 4px;margin:-12px 0}
+.tryit__links{display:flex;flex-wrap:wrap;gap:4px 16px}
+.sticky-cta{transition:transform .3s var(--ease)}
+.sticky-cta.is-hidden{transform:translateY(110%)}
+.embed-sheet{position:fixed;inset:0;z-index:300;background:#000;display:grid;grid-template-rows:56px minmax(0,1fr);height:100vh;height:100dvh}
+.embed-sheet__bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 16px;border-bottom:1px solid var(--hair-strong);background:#000}
+.embed-sheet__bar span{font:800 1rem/1.2 var(--display);font-stretch:112%;letter-spacing:-.02em}
+.embed-sheet__close{min-height:44px;min-width:88px;padding:0 20px;border:1px solid var(--hair-strong);border-radius:var(--r);background:#0B0B0C;color:#fff;font:700 .9375rem var(--sans);cursor:pointer}
+.embed-sheet iframe{width:100%;height:100%;border:0;background:#000}
+@media(max-width:759px){.tryit__launch{min-height:300px}}
+
+.foot nav a{min-width:48px;justify-content:center}
