@@ -157,6 +157,13 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   });
 })();
 
+/* ---------- Sticky CTA steps aside when you are already at the booking section ---------- */
+(function stickyCta() {
+  const bar = $(".sticky-cta"), book = $("#book");
+  if (!bar || !book || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(l => bar.classList.toggle("is-hidden", l[0].isIntersecting), { threshold: 0.15 }).observe(book);
+})();
+
 /* ---------- Scroll progress line ---------- */
 (function progress() {
   const bar = $("#progress");
@@ -173,15 +180,57 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   draw();
 })();
 
-/* ---------- 3D tool embed: loads only when the visitor taps launch ---------- */
+/* ---------- Tool embeds: inline on desktop, full-screen sheet on phones (no scroll trap) ---------- */
 (function embed() {
+  const phone = () => matchMedia("(max-width: 759px)").matches;
+  let sheet = null, opener = null;
+
+  function closeSheet(fromPop) {
+    if (!sheet) return;
+    sheet.remove(); sheet = null;
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    if (!fromPop && history.state && history.state.embed) history.back();
+    if (opener) { opener.focus(); opener = null; }
+  }
+
+  function openSheet(box, btn) {
+    opener = btn;
+    sheet = document.createElement("div");
+    sheet.className = "embed-sheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-label", box.dataset.title || "Interactive tool");
+    const bar = document.createElement("div");
+    bar.className = "embed-sheet__bar";
+    const t = document.createElement("span");
+    t.textContent = box.dataset.title || "Interactive tool";
+    const x = document.createElement("button");
+    x.type = "button"; x.className = "embed-sheet__close"; x.textContent = "Close";
+    x.addEventListener("click", () => closeSheet(false));
+    bar.append(t, x);
+    const f = document.createElement("iframe");
+    f.src = box.dataset.embed; f.title = box.dataset.title || "Interactive tool";
+    f.setAttribute("allow", "fullscreen");
+    sheet.append(bar, f);
+    document.body.append(sheet);
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    history.pushState({ embed: 1 }, "");
+    x.focus();
+  }
+
+  addEventListener("popstate", () => { if (sheet) closeSheet(true); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && sheet) closeSheet(false); });
+
   document.querySelectorAll("[data-embed]").forEach(box => {
     const btn = box.querySelector(".tryit__launch");
     if (!btn) return;
     btn.addEventListener("click", () => {
+      if (phone()) { openSheet(box, btn); return; }
       const f = document.createElement("iframe");
       f.src = box.dataset.embed;
-      f.title = "Interactive 3D pergola designer";
+      f.title = box.dataset.title || "Interactive tool";
       f.loading = "eager";
       f.setAttribute("allow", "fullscreen");
       box.replaceChildren(f);
@@ -258,11 +307,13 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
         picked = s;
         chosen.textContent = fmtDay(s, { weekday: "long", month: "long", day: "numeric" }) + " at " + fmtTime(s) + " CT";
         show(days, false); show(times, false); show(form);
-        form.querySelector("input[name=name]").focus();
+        if (matchMedia("(pointer: fine)").matches) form.querySelector("input[name=name]").focus({ preventScroll: true });
+        form.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
       times.append(b);
     });
     show(times);
+    times.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   $("#b-back").addEventListener("click", () => { show(form, false); show(days); show(times); show(err, false); });

@@ -90,3 +90,27 @@ footer{border-top:1px solid var(--line);padding:22px 4vw;font-size:12px;color:va
 @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr) 300px;gap:18px}.controls{padding:18px}.local-label{display:none}.topbar .primary{margin-left:auto}.drawing-summary{gap:22px}}
 @media(max-width:720px){.workspace{grid-template-columns:1fr}.topbar{height:72px;padding:0 20px}.wrdmark{width:72px}.identity{font-size:15px}.topbar .primary{font-size:12px;padding:8px 14px}main{padding:25px 20px 40px}.preview-toolbar button{font-size:12px;padding:8px 12px}#stage{height:380px}.drawing-summary{justify-content:space-between;gap:10px}.drawing-summary strong{font-size:16px}.preview-foot span{max-width:170px}.controls{padding:24px}.finishes{gap:10px}.finish{flex:1 0 25%}.notes{padding-top:28px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* ---------- UX pass ---------- */
+button,.file-button{font-size:14px}
+.preview-toolbar button,.preview-foot button{font-size:14px}
+.sides button{font-size:13px;min-height:44px;padding:6px 12px}
+.identity{min-height:44px}
+summary{min-height:48px;display:flex;align-items:center}
+.option{min-height:52px}
+.option input[type=checkbox]{width:28px;height:28px;flex:none}
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:44px;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.28)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.28)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-11px;border-radius:50%;border:2px solid #000;background:var(--bronze-grad);box-shadow:0 0 0 1px rgba(255,255,255,.45)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;border:2px solid #000;background:#d9a070}
+@media(max-width:720px){
+  .preview-toolbar button{font-size:14px;padding:8px 14px}
+  .topbar .primary{font-size:13px;padding:8px 16px}
+  .preview-foot{flex-direction:column;align-items:stretch}
+  .preview-foot button{width:100%}
+  .embedded #stage{height:min(46vh,380px)}
+}
+
+.option{padding-top:0;padding-bottom:0}
+.option label{padding:15px 0;cursor:pointer}
