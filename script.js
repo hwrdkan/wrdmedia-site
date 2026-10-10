@@ -211,5 +211,49 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   });
 })();
 
+
+/* ---------- Offers coverflow on phones (runs before the engine mounts) ---------- */
+(function offersCoverflow() {
+  if (!matchMedia("(max-width: 859px)").matches) return;
+  const sec = document.getElementById("more"); if (!sec) return;
+  const rail = sec.querySelector(".rail"), stageEl = sec.querySelector("[data-sc-stage]");
+  const panels = [...rail.querySelectorAll(".panel")]; if (panels.length < 2) return;
+  sec.setAttribute("data-sc-act", "flow"); sec.removeAttribute("data-sc-span");
+  stageEl.removeAttribute("data-sc-stage"); stageEl.classList.add("cf-stage");
+  rail.removeAttribute("data-sc-pan"); rail.classList.add("cf");
+  const end = rail.querySelector(".rail__end"); if (end) end.remove();
+  const stage = document.createElement("div"); stage.className = "cf__stage";
+  stage.setAttribute("role", "group"); stage.setAttribute("aria-label", "Offers"); stage.setAttribute("aria-roledescription", "carousel");
+  panels.forEach(p => stage.append(p));
+  const ui = document.createElement("div"); ui.className = "cf__ui";
+  const mkBtn = (t, label, d) => { const b = document.createElement("button"); b.type = "button"; b.className = "cf__btn"; b.textContent = t; b.setAttribute("aria-label", label); b.addEventListener("click", () => step(d)); return b; };
+  const dots = document.createElement("div"); dots.className = "cf__dots";
+  const dotEls = panels.map((p, i) => { const d = document.createElement("button"); d.type = "button"; d.className = "cf__dot"; d.setAttribute("aria-label", "Show offer " + (i + 1)); d.addEventListener("click", () => go(i)); dots.append(d); return d; });
+  ui.append(mkBtn("←", "Previous offer", -1), dots, mkBtn("→", "Next offer", 1));
+  rail.append(stage, ui);
+  const n = panels.length; let active = 0;
+  const rel = i => { const r = i - active; return r > n / 2 ? r - n : r < -n / 2 ? r + n : r; };
+  function render() {
+    panels.forEach((p, i) => {
+      const o = rel(i), center = o === 0, vis = Math.abs(o) <= 1;
+      p.style.transform = center ? "translateX(0) translateZ(0) rotateY(0) scale(1)" : o < 0 ? "translateX(-62%) translateZ(-120px) rotateY(38deg) scale(.78)" : "translateX(62%) translateZ(-120px) rotateY(-38deg) scale(.78)";
+      p.style.opacity = !vis ? 0 : center ? 1 : 0.38;
+      p.style.zIndex = center ? 3 : 1;
+      p.style.pointerEvents = vis ? "auto" : "none";
+      p.dataset.state = center ? "center" : vis ? "side" : "hidden";
+      p.setAttribute("aria-hidden", center ? "false" : "true");
+      if (center) p.removeAttribute("inert"); else p.setAttribute("inert", "");
+    });
+    dotEls.forEach((d, i) => d.setAttribute("aria-current", i === active ? "true" : "false"));
+  }
+  function go(i) { active = (i + n) % n; render(); }
+  function step(d) { go(active + d); }
+  let sx = null;
+  stage.addEventListener("pointerdown", e => { sx = e.clientX; });
+  stage.addEventListener("pointerup", e => { if (sx === null) return; const dx = e.clientX - sx; if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1); sx = null; });
+  stage.addEventListener("pointercancel", () => { sx = null; });
+  render();
+})();
+
 /* ---------- Scroll engine ---------- */
 if (window.ScrollCraft) ScrollCraft.mount(document.body);

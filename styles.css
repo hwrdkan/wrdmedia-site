@@ -185,3 +185,37 @@ input:focus,textarea:focus{border-color:var(--gold);outline:none;box-shadow:0 0 
 [hidden]{display:none!important}
 
 .tools{margin-top:1.4rem;display:grid;gap:.7rem}
+
+/* ---------- glowing rotating border (registered angle + conic ring masked to the edge) ---------- */
+@property --glow-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+.glow{position:relative;isolation:isolate;border:0!important;
+  --glow-a:#D6AE4B;--glow-hi:#FFF0C2;--glow-dark:#1a1508;
+  box-shadow:0 0 0 1px rgba(214,174,75,.16),0 18px 36px -28px rgba(214,174,75,.6)}
+.glow--silver{--glow-a:#C8CDD5;--glow-hi:#FFFFFF;--glow-dark:#16171a;box-shadow:0 0 0 1px rgba(200,205,213,.16),0 18px 36px -28px rgba(200,205,213,.5)}
+.glow::before{content:"";position:absolute;inset:0;z-index:2;padding:3px;pointer-events:none;
+  background:conic-gradient(from var(--glow-angle),var(--glow-dark) 0deg 42deg,color-mix(in srgb,var(--glow-a) 28%,transparent) 75deg,var(--glow-a) 102deg,var(--glow-hi) 122deg,var(--glow-a) 142deg,color-mix(in srgb,var(--glow-a) 26%,transparent) 168deg,var(--glow-dark) 204deg 1turn);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:glowSpin 6.5s linear infinite}
+.glow>*{position:relative;z-index:1}
+.glow:focus-within{box-shadow:0 0 0 2px rgba(214,174,75,.7),0 20px 44px -24px rgba(214,174,75,.9)}
+@keyframes glowSpin{to{--glow-angle:1turn}}
+@media(prefers-reduced-motion:reduce){.glow::before{animation:none}}
+
+/* ---------- coverflow (phones): step through the offers ---------- */
+.cf-stage{padding:clamp(3rem,10vw,5rem) 0;background:var(--black);border-top:var(--line) solid var(--silver);overflow-x:clip}
+.cf{display:block;padding:0 var(--sc-gutter)}
+.cf .rail__lead{margin-bottom:2rem}
+.cf__stage{display:grid;width:86%;margin:0 auto;perspective:1400px;touch-action:pan-y;user-select:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%)}
+.cf__stage>.panel{grid-area:1/1;flex:none;width:100%;max-height:none;overflow:visible;background:#0b0b0c;
+  transition:transform .5s var(--sc-ease-out),opacity .5s var(--sc-ease-out);will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cf__stage>.panel li:nth-child(n+4),.cf__stage>.panel .note{display:list-item}
+.cf__stage>.panel .note{display:block}
+.cf__stage>.panel[data-state=side] .glow::before,.cf__stage>.panel[data-state=side]::before{animation-play-state:paused;opacity:.55}
+.cf__ui{display:flex;align-items:center;justify-content:center;gap:1.1rem;margin-top:1.6rem}
+.cf__btn{width:3rem;height:3rem;border:var(--line) solid var(--silver);background:transparent;color:var(--bone);font:700 1.2rem/1 var(--sc-font-text);cursor:pointer}
+.cf__btn:active{transform:scale(.96)}
+.cf__dots{display:flex;gap:.6rem}
+.cf__dot{width:.9rem;height:.9rem;border:2px solid var(--silver);background:transparent;padding:0;cursor:pointer}
+.cf__dot[aria-current=true]{background:var(--gold);border-color:var(--gold)}
+@media(prefers-reduced-motion:reduce){.cf__stage>.panel{transition:opacity .2s}}
