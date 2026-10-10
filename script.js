@@ -6,7 +6,7 @@ const CONFIG = {
   phoneTel: "+14242361139",
   city: "Frisco, TX",
   timezone: "America/Chicago",
-  bookingWorkerUrl: "",          // e.g. "https://wrdmedia-booking.<subdomain>.workers.dev" — empty = phone fallback
+  bookingWorkerUrl: "https://wrdmedia-booking.hwrdkan.workers.dev",
   bookingDaysAhead: 14,
   photoFrames: false,            // set true after dropping assets/seq/001.webp..072.webp
   formEndpoint: "https://formsubmit.co/ajax/",  // + email

@@ -3,8 +3,5 @@ main = "index.js"
 compatibility_date = "2026-10-01"
 
 [vars]
-CALENDAR_ID = "hwrdkan@gmail.com"
-ALLOWED_ORIGINS = "https://wrdmedia.com,https://www.wrdmedia.com,https://wrdmedia.pages.dev"
-
-# Secrets (set with `npx wrangler secret put NAME`):
-#   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN
+ALLOWED_ORIGINS = "https://wrdmedia.com,https://www.wrdmedia.com,https://wrdmedia-site.pages.dev"
+# APPS_SCRIPT_URL is set to the deployed Apps Script web app /exec URL (see README).
