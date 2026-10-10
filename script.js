@@ -157,6 +157,39 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   });
 })();
 
+/* ---------- Scroll progress line ---------- */
+(function progress() {
+  const bar = $("#progress");
+  if (!bar) return;
+  let q = false;
+  const draw = () => {
+    q = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0).toFixed(4) + ")";
+  };
+  const queue = () => { if (!q) { q = true; requestAnimationFrame(draw); } };
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", queue);
+  draw();
+})();
+
+/* ---------- 3D tool embed: loads only when the visitor taps launch ---------- */
+(function embed() {
+  document.querySelectorAll("[data-embed]").forEach(box => {
+    const btn = box.querySelector(".tryit__launch");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = box.dataset.embed;
+      f.title = "Interactive 3D pergola designer";
+      f.loading = "eager";
+      f.setAttribute("allow", "fullscreen");
+      box.replaceChildren(f);
+      f.focus();
+    });
+  });
+})();
+
 /* ---------- Booking ---------- */
 (function booking() {
   const days = $("#b-days"), times = $("#b-times"), form = $("#b-form"),
