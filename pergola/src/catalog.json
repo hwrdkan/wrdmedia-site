@@ -1,0 +1,355 @@
+{
+  "brand": "TEMO",
+  "brandLegal": "TEMO Inc.",
+  "source": "temosunrooms.com product pages, pulled 2026-09-25. Engineering values marked UNCONFIRMED are reference placeholders until TEMO supplies spec sheets.",
+  "claims": {
+    "warranty": "Limited lifetime transferable warranty",
+    "material": "Heavy-gauge extruded aluminum with an electrostatic, maintenance-free finish (TEMKOR surfacing on contemporary lines)",
+    "wind": "Fixed pergolas rated for winds up to 220 mph (TEMO fixed-pergola page)",
+    "shade": "Fixed pergolas provide about 60% shade (TEMO fixed-pergola page)",
+    "hail": "Operable louvers withstand 95% of hail storms closed, 99% open (TEMO pergola FAQ)",
+    "surfaces": "Installs over wood decks, concrete pads or pavers",
+    "upgradePath": "Patio covers can later be upgraded to a screen room or full sunroom",
+    "installTime": "Patio covers typically install in 1 to 2 days on an approved foundation"
+  },
+  "finishes": [
+    {
+      "id": "white",
+      "name": "White",
+      "hex": "#EDEDE8",
+      "roughness": 0.45
+    },
+    {
+      "id": "sandstone",
+      "name": "Sandstone",
+      "hex": "#C9B99B",
+      "roughness": 0.5
+    },
+    {
+      "id": "bronze",
+      "name": "Bronze",
+      "hex": "#4A3F35",
+      "roughness": 0.42
+    },
+    {
+      "id": "black",
+      "name": "Black",
+      "hex": "#1C1D1F",
+      "roughness": 0.38
+    },
+    {
+      "id": "two-tone",
+      "name": "Two-tone (bronze frame, white roof)",
+      "hex": "#4A3F35",
+      "roofHex": "#EDEDE8",
+      "roughness": 0.45
+    }
+  ],
+  "styles": [
+    {
+      "id": "classic",
+      "name": "Classic",
+      "desc": "Arched roof with scalloped corbel rafter tails, doubled header beams and trimmed columns.",
+      "endCut": "corbel",
+      "source": "temosunrooms.com/pergolas/classic-pergola, product photos"
+    },
+    {
+      "id": "contemporary",
+      "name": "Contemporary",
+      "desc": "Flat roof inside a clean box frame with square columns.",
+      "endCut": "square",
+      "source": "temosunrooms.com/pergolas/contemporary-pergola, product photos"
+    },
+    {
+      "id": "studio",
+      "name": "Studio",
+      "desc": "Flat insulated roof with angled knee braces; flat ceiling ready for fans and lights.",
+      "source": "temosunrooms.com/patio-covers/studio-pavilion"
+    },
+    {
+      "id": "santa-fe",
+      "name": "Santa Fe",
+      "desc": "Flat insulated roof with pergola lattice accents around the edge (attached only).",
+      "source": "temosunrooms.com/patio-covers/santa-fe-patio-cover"
+    },
+    {
+      "id": "cathedral",
+      "name": "Cathedral",
+      "desc": "Gable roof with a vaulted cathedral ceiling.",
+      "source": "temosunrooms.com/patio-covers/cathedral-pavilion"
+    }
+  ],
+  "lines": [
+    {
+      "id": "operable-pergola",
+      "name": "Operable Pergola",
+      "tagline": "Motorized louvers: full sun to full cover at the touch of a button.",
+      "roof": "louvers-operable",
+      "styles": [
+        "classic",
+        "contemporary"
+      ],
+      "mounts": [
+        "attached",
+        "freestanding"
+      ],
+      "finishes": [
+        "white",
+        "sandstone",
+        "bronze",
+        "black",
+        "two-tone"
+      ],
+      "priceTier": "motorized",
+      "sourceUrl": "https://temosunrooms.com/pergolas/operable-pergola/",
+      "imageTags": {
+        "category": "pergola",
+        "roof": "operable"
+      }
+    },
+    {
+      "id": "fixed-pergola",
+      "name": "Fixed Pergola",
+      "tagline": "Fixed louvers for about 60% shade, rated for 220 mph winds.",
+      "roof": "louvers-fixed",
+      "fixedLouverAngleDeg": 55,
+      "styles": [
+        "classic",
+        "contemporary"
+      ],
+      "mounts": [
+        "attached",
+        "freestanding"
+      ],
+      "finishes": [
+        "white",
+        "sandstone",
+        "bronze",
+        "black",
+        "two-tone"
+      ],
+      "priceTier": "fixed",
+      "sourceUrl": "https://temosunrooms.com/pergolas/fixed-pergola/",
+      "imageTags": {
+        "category": "pergola",
+        "roof": "fixed"
+      }
+    },
+    {
+      "id": "patio-cover",
+      "name": "Insulated Patio Cover",
+      "tagline": "Solid insulated roof in TEMO's Studio, Santa Fe or Cathedral style.",
+      "roof": "solid-insulated",
+      "styles": [
+        "studio",
+        "santa-fe",
+        "cathedral"
+      ],
+      "mounts": [
+        "attached",
+        "freestanding"
+      ],
+      "finishes": [
+        "white",
+        "sandstone",
+        "bronze",
+        "black"
+      ],
+      "roofPanelNote": "Roof panels are white; ceiling can be upgraded to Tuscany Wood Grain.",
+      "priceTier": "patioCover",
+      "sourceUrl": "https://temosunrooms.com/patio-covers/",
+      "imageTags": {
+        "category": "pavilion/patio cover"
+      },
+      "styleMounts": {
+        "santa-fe": [
+          "attached"
+        ]
+      }
+    }
+  ],
+  "options": [
+    {
+      "id": "led",
+      "name": "LED lighting",
+      "priceKey": "led",
+      "needsPower": true,
+      "lines": [
+        "operable-pergola",
+        "fixed-pergola",
+        "patio-cover"
+      ],
+      "source": "brand",
+      "sourceNote": "TEMO: lighting accessories on pergolas; integrated lighting on contemporary pergolas; lighting on patio covers."
+    },
+    {
+      "id": "fan",
+      "name": "Ceiling fan",
+      "priceKey": "fan",
+      "needsPower": true,
+      "perUnit": true,
+      "max": 2,
+      "lines": [
+        "patio-cover",
+        "operable-pergola"
+      ],
+      "source": "brand",
+      "sourceNote": "TEMO: ceiling fans on contemporary pergolas and patio covers/pavilions."
+    },
+    {
+      "id": "heater",
+      "name": "Infrared heater",
+      "priceKey": "heater",
+      "needsPower": true,
+      "perUnit": true,
+      "max": 2,
+      "lines": [
+        "operable-pergola",
+        "fixed-pergola",
+        "patio-cover"
+      ],
+      "source": "mixed",
+      "sourceNote": "TEMO: heaters on patio covers/pavilions (integrated beam systems). On pergolas: dealer add-on."
+    },
+    {
+      "id": "screen",
+      "name": "Retractable screen",
+      "priceKey": "screen",
+      "needsPower": true,
+      "perSide": true,
+      "rule": "notOnHouseSide",
+      "lines": [
+        "operable-pergola",
+        "fixed-pergola",
+        "patio-cover"
+      ],
+      "source": "brand",
+      "sourceNote": "TEMO: retractable shades, curtains and privacy panels on pergolas; curtain wall for retractable screens on St. Thomas/Skyview patio covers. Motorized screens: dealer add-on (e.g. Tucson Rolling Shutters)."
+    },
+    {
+      "id": "rainSensor",
+      "name": "Rain and wind sensor (auto-close)",
+      "priceKey": "sensor",
+      "needsPower": true,
+      "lines": [
+        "operable-pergola"
+      ],
+      "source": "dealer",
+      "sourceNote": "Not listed by TEMO. Dealer add-on; confirm the dealer offers it before launch."
+    },
+    {
+      "id": "tuscany",
+      "name": "Tuscany Wood Grain ceiling",
+      "priceKey": "tuscany",
+      "perSqft": true,
+      "lines": [
+        "patio-cover"
+      ],
+      "source": "brand",
+      "sourceNote": "TEMO: Tuscany Wood Grain Finish ceiling panels for patio covers and sunrooms (2026)."
+    },
+    {
+      "id": "skylights",
+      "name": "Skylight panels (Skyview)",
+      "priceKey": "skylight",
+      "perUnit": true,
+      "max": 4,
+      "lines": [
+        "patio-cover"
+      ],
+      "source": "brand",
+      "sourceNote": "TEMO: skylights on attached patio covers; Skyview uses polycarbonate roof panels.",
+      "styles": [
+        "studio",
+        "santa-fe"
+      ]
+    }
+  ],
+  "engineering_UNCONFIRMED": {
+    "widthIn": {
+      "min": 96,
+      "max": 360,
+      "step": 6
+    },
+    "depthIn": {
+      "min": 96,
+      "max": 288,
+      "step": 6
+    },
+    "maxPostSpanIn": 192,
+    "maxLouverBladeIn": 156,
+    "louverSpacingIn": 8,
+    "postIn": 6,
+    "beamDepthIn": 8,
+    "clearHeightIn": 96,
+    "note": "Placeholders from industry norms and Apollo's public limits. Replace with TEMO span charts before a real dealer quote."
+  },
+  "pricing_DEMO_DEFAULTS": {
+    "note": "Planning ranges from 2026 published cost guides. Every dealer overrides these with their own numbers.",
+    "perSqft": {
+      "fixed": [
+        55,
+        80
+      ],
+      "motorized": [
+        80,
+        130
+      ],
+      "patioCover": [
+        35,
+        65
+      ]
+    },
+    "led": [
+      500,
+      3000
+    ],
+    "fan": [
+      300,
+      800
+    ],
+    "heater": [
+      400,
+      1500
+    ],
+    "screen": [
+      2500,
+      5000
+    ],
+    "sensor": [
+      250,
+      1000
+    ],
+    "tuscany": [
+      6,
+      12
+    ],
+    "skylight": [
+      300,
+      700
+    ],
+    "electrical": [
+      500,
+      3000
+    ],
+    "styleMultiplier": {
+      "classic": 1.0,
+      "contemporary": 1.05,
+      "studio": 1.0,
+      "santa-fe": 1.06,
+      "cathedral": 1.15
+    },
+    "freestandingMultiplier": 1.08,
+    "roundTo": 500,
+    "financing": {
+      "aprPct": 9.99,
+      "termMonths": 120
+    }
+  },
+  "dealerAssets": {
+    "library": "https://app.air.inc/a/bgB5wtBQZ",
+    "access": "Passcode protected. TEMO gives the passcode to authorized dealers; request it through the signed dealer.",
+    "hotlinking": "temosunrooms.com returns 403 to image requests without a TEMO referer. Always download and rehost approved images."
+  },
+  "optionSourceKey": "brand = on TEMO's own site; dealer = offered by dealers, not listed by TEMO; mixed = brand on some lines, dealer on others. Dealers can hide any option with pergolaStudio.hideOptions."
+}

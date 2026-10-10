@@ -8,6 +8,7 @@ const CONFIG = {
   timezone: "America/Chicago",
   bookingWorkerUrl: "",          // e.g. "https://wrdmedia-booking.<subdomain>.workers.dev" — empty = phone fallback
   bookingDaysAhead: 14,
+  photoFrames: false,            // set true after dropping assets/seq/001.webp..072.webp
   formEndpoint: "https://formsubmit.co/ajax/",  // + email
 };
 /* ===================================================== */
@@ -22,6 +23,51 @@ document.querySelectorAll("[data-email-link]").forEach(a => { a.href = "mailto:"
 const fmtTime = iso => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timezone, hour: "numeric", minute: "2-digit" }).format(new Date(iso));
 const fmtDay = (iso, opts) => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timezone, ...opts }).format(new Date(iso));
 const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezone }).format(new Date(iso)); // YYYY-MM-DD
+
+/* ---------- Pergola line art + scroll-drawn build (signature move) ---------- */
+(function pergola() {
+  const NS = "http://www.w3.org/2000/svg";
+  const main = ["M180 420V170", "M620 420V170", "M340 310V60", "M780 310V60", "M180 170H620", "M340 60H780", "M180 170L340 60", "M620 170L780 60", "M180 420H620", "M620 420L780 310"];
+  const rafters = []; for (let x = 235; x < 620; x += 55) rafters.push("M" + x + " 170L" + (x + 160) + " 60");
+  const hidden = ["M180 420L340 310", "M340 310H780"];
+  const dims = ["M180 468H620", "M180 458V478", "M620 458V478", "M820 60V310", "M810 60H830", "M810 310H830"];
+  const mk = (cls, d, draw) => { const p = document.createElementNS(NS, "path"); p.setAttribute("class", cls); p.setAttribute("d", d); if (draw) p.setAttribute("pathLength", "1"); return p; };
+  const label = (x, y, t) => { const e = document.createElementNS(NS, "text"); e.setAttribute("x", x); e.setAttribute("y", y); e.textContent = t; return e; };
+  const els = [];
+  document.querySelectorAll("[data-pergola]").forEach(svg => {
+    const draw = svg.dataset.pergola === "draw", g = [];
+    hidden.forEach(d => svg.append(mk("p-hidden", d)));
+    main.forEach(d => { const p = mk("p-main", d, draw); svg.append(p); g.push(p); });
+    rafters.forEach(d => { const p = mk("p-rafter", d, draw); svg.append(p); g.push(p); });
+    if (draw) { dims.forEach(d => { const p = mk("p-dim", d, true); svg.append(p); g.push(p); });
+      const a = label(400, 462, "16 FT"), b = label(836, 190, "10 FT"); svg.append(a, b); els.push({ svg, g, texts: [a, b], section: svg.closest("section") }); }
+  });
+  if (!els.length) return;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let queued = false;
+  function frame() {
+    queued = false;
+    els.forEach(o => {
+      const r = o.section.getBoundingClientRect(), vh = innerHeight;
+      const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+      const t = reduce ? 1 : clamp(p / 0.5, 0, 1);
+      o.g.forEach((path, i) => { const s = (i / o.g.length) * 0.6; path.style.strokeDashoffset = String(1 - clamp((t - s) / 0.4, 0, 1)); });
+      o.texts.forEach(x => { x.style.opacity = t > 0.92 ? 1 : 0; });
+      o.svg.style.opacity = o.section.classList.contains("has-frames") ? String(1 - clamp((p - 0.62) / 0.3, 0, 0.82)) : "1";
+    });
+  }
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+  addEventListener("scroll", queue, { passive: true }); addEventListener("resize", queue); queue();
+
+  // If the photographic frames exist, let them take over; otherwise the line art stands alone.
+  if (CONFIG.photoFrames) {
+    const cv = document.querySelector("canvas[data-seq]");
+    if (cv) cv.setAttribute("data-sc-sequence", cv.dataset.seq);
+    els.forEach(o => o.section.classList.add("has-frames"));
+    queue();
+  }
+})();
 
 /* ---------- Booking ---------- */
 (function booking() {
@@ -122,7 +168,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
         done.append(h, p); show(done);
       })
       .catch(ex => {
-        if (/taken|unavailable/i.test(ex.message)) { err.textContent = "That time was just taken — please go back and pick another."; }
+        if (/taken|unavailable/i.test(ex.message)) { err.textContent = "That time was just taken. Please go back and pick another."; }
         else { err.textContent = "Couldn't complete the booking. Call or text " + CONFIG.phone + " and we'll lock it in."; }
         show(err);
         submit.disabled = false; submit.textContent = "Confirm booking";
@@ -155,7 +201,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
       .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(() => {
         form.reset();
-        msg.className = "ok"; msg.textContent = "Thanks — I'll reply within one business day."; show(msg);
+        msg.className = "ok"; msg.textContent = "Thanks. I'll reply within one business day."; show(msg);
         btn.textContent = "Sent";
       })
       .catch(() => {
@@ -164,3 +210,6 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
       });
   });
 })();
+
+/* ---------- Scroll engine ---------- */
+if (window.ScrollCraft) ScrollCraft.mount(document.body);
