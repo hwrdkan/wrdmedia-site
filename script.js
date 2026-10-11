@@ -180,6 +180,67 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   draw();
 })();
 
+/* ---------- 3D coverflow: port of the myagencylogics.com Coverflow3D component ---------- */
+(function coverflow() {
+  document.querySelectorAll("[data-coverflow]").forEach(root => {
+    const stage = root.querySelector(".cf3d__stage"), cardsEl = root.querySelector(".cf3d__cards");
+    const items = [...root.querySelectorAll("[data-cf-item]")];
+    const n = items.length;
+    if (!stage || !cardsEl || n < 2) return;
+    let active = Math.min(n - 1, Math.max(0, parseInt(root.dataset.start || "0", 10) || 0));
+    const rel = i => { const raw = i - active; return raw > n / 2 ? raw - n : raw < -n / 2 ? raw + n : raw; };
+
+    const arrow = (dir, label) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "cf3d__arrow cf3d__arrow--" + (dir < 0 ? "prev" : "next"); b.setAttribute("aria-label", label);
+      b.innerHTML = '<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="' + (dir < 0 ? "M12 15l-5-5 5-5" : "M8 15l5-5-5-5") + '" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      b.addEventListener("click", () => go(active + dir));
+      return b;
+    };
+    stage.append(arrow(-1, "Previous service"), arrow(1, "Next service"));
+    const dotsEl = document.createElement("div"); dotsEl.className = "cf3d__dots";
+    const dots = items.map((it, i) => {
+      const d = document.createElement("button"); d.type = "button"; d.className = "cf3d__dot"; d.setAttribute("aria-label", "Show service " + (i + 1));
+      d.innerHTML = "<span></span>"; d.addEventListener("click", () => go(i)); dotsEl.append(d); return d;
+    });
+    root.append(dotsEl);
+
+    function render() {
+      items.forEach((el, i) => {
+        const o = rel(i), center = o === 0, vis = Math.abs(o) <= 1;
+        el.style.transform = center ? "translateX(0%) translateZ(0) rotateY(0deg) scale(1)"
+          : o < 0 ? "translateX(-62%) translateZ(-120px) rotateY(38deg) scale(0.78)" : "translateX(62%) translateZ(-120px) rotateY(-38deg) scale(0.78)";
+        el.style.opacity = !vis ? 0 : center ? 1 : 0.38;
+        el.style.zIndex = center ? 3 : 1;
+        el.style.pointerEvents = vis ? "auto" : "none";
+        el.dataset.state = center ? "center" : vis ? "side" : "hidden";
+        el.setAttribute("aria-hidden", center ? "false" : "true");
+        el.querySelectorAll("a,button").forEach(c => { if (center) c.removeAttribute("tabindex"); else c.setAttribute("tabindex", "-1"); });
+      });
+      dots.forEach((d, i) => d.setAttribute("aria-current", i === active ? "true" : "false"));
+    }
+    function go(i) { active = (i + n) % n; render(); }
+
+    // swipe / drag (same 40px threshold as the original)
+    let sx = null;
+    cardsEl.addEventListener("pointerdown", e => { sx = e.clientX; });
+    cardsEl.addEventListener("pointerup", e => { if (sx === null) return; const dx = e.clientX - sx; if (Math.abs(dx) > 40) go(active + (dx < 0 ? 1 : -1)); sx = null; });
+    cardsEl.addEventListener("pointercancel", () => { sx = null; });
+    // a side card brings itself to the centre instead of acting on what it contains
+    cardsEl.addEventListener("click", e => {
+      const card = e.target.closest("[data-cf-item]");
+      if (card && card.dataset.state !== "center") { e.preventDefault(); e.stopPropagation(); go(items.indexOf(card)); }
+    }, true);
+    root.setAttribute("tabindex", "0");
+    root.addEventListener("keydown", e => {
+      if (e.target !== root) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(active - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1); }
+    });
+    render();
+  });
+})();
+
 /* ---------- Tool embeds: inline on desktop, full-screen sheet on phones (no scroll trap) ---------- */
 (function embed() {
   const phone = () => matchMedia("(max-width: 759px)").matches;
@@ -227,7 +288,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
     const btn = box.querySelector(".tryit__launch");
     if (!btn) return;
     btn.addEventListener("click", () => {
-      if (phone()) { openSheet(box, btn); return; }
+      if (phone() || box.dataset.sheet === "always") { openSheet(box, btn); return; }
       const f = document.createElement("iframe");
       f.src = box.dataset.embed;
       f.title = box.dataset.title || "Interactive tool";

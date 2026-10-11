@@ -449,3 +449,50 @@ main:focus{outline:none}
 .steps__n{transition:color .45s var(--ease)}
 .steps li.is-lit .steps__n{color:#fff}
 @media(prefers-reduced-motion:reduce){.steps::after{transform:scaleY(1)}.steps li::before{background:var(--silver-grad);border-color:#fff}.steps__n{color:#fff}}
+
+/* ---------- Header nav ---------- */
+.bar__nav{display:none;gap:4px}
+.bar__nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;font-weight:600;font-size:.9375rem;color:#fff;text-decoration:none;border-radius:var(--r)}
+.bar__nav a:hover,.bar__nav a[aria-current=page]{background:rgba(255,255,255,.1)}
+.bar{gap:8px}
+@media(min-width:760px){.bar__nav{display:flex}.pagebar .bar__nav{margin-left:auto;margin-right:12px}}
+.services-hero{grid-template-columns:1fr!important;max-width:860px}
+
+/* ---------- 3D coverflow (ported from the myagencylogics.com Coverflow3D component) ---------- */
+.cf3d{position:relative;margin-top:clamp(32px,5vw,56px);overflow-x:clip;padding-bottom:8px}
+.cf3d__stage{position:relative;width:84%;max-width:28rem;height:35rem;margin:0 auto}
+@media(min-width:640px){.cf3d__stage{width:100%;height:30rem}}
+.cf3d__cards{position:absolute;inset:0;perspective:1400px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cf3d__card{position:absolute;inset:0;isolation:isolate;border-radius:var(--r);background:#050505;border:0;
+  transition:transform .5s var(--ease),opacity .5s var(--ease);will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden;cursor:pointer}
+.cf3d__card[data-state=center]{cursor:default;background:#0B0B0C}
+.cf3d__card[data-state=side]::before{animation-play-state:paused;opacity:.55}
+.cf3d__in{height:100%;display:flex;flex-direction:column;gap:12px;padding:28px 24px 72px;position:relative;z-index:1}
+.cf3d__icon{color:var(--silver);margin-bottom:4px}
+.cf3d__in h3{font-size:clamp(1.375rem,1.1rem + 1vw,1.75rem)}
+.cf3d__out{color:var(--ink-soft);font-size:1.0625rem;line-height:1.5}
+.cf3d__price{margin-top:auto;color:var(--ink-soft);font-size:1rem}
+.cf3d__price b{font:800 1.5rem/1 var(--display);font-stretch:110%;color:#fff;letter-spacing:-.02em}
+.cf3d__actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cf3d__link{color:#fff;font-weight:600;font-size:.9375rem;padding:12px 0}
+.cf3d__arrow{position:absolute;bottom:12px;z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid var(--hair-strong);background:rgba(0,0,0,.88);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;
+  transition:border-color .16s,transform .16s}
+.cf3d__arrow:hover{border-color:#fff}
+.cf3d__arrow:active{transform:scale(.94)}
+.cf3d__arrow--prev{left:0}
+.cf3d__arrow--next{right:0}
+.cf3d__dots{display:flex;gap:4px;justify-content:center;margin-top:20px}
+.cf3d__dot{width:32px;height:44px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cf3d__dot span{display:block;height:6px;width:6px;border-radius:3px;background:rgba(255,255,255,.28);transition:width .3s,background .3s}
+.cf3d__dot[aria-current=true] span{width:24px;background:#fff}
+.products__more{margin-top:24px;text-align:center}
+
+/* ---------- Home: try-the-tools strip ---------- */
+.trystrip{margin-top:clamp(48px,7vw,88px);display:grid;gap:16px}
+.trystrip__grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:760px){.trystrip__grid{grid-template-columns:1fr 1fr}}
+.trystrip .tryit__launch{min-height:200px;padding:24px}
+.trystrip .tryit__launch strong{font-size:clamp(1.25rem,1rem + 1vw,1.625rem)}
+
+@media(max-width:759px){.products__more .btn{width:100%}.cf3d__stage{height:35rem}}
+@media(prefers-reduced-motion:reduce){.cf3d__card{transition:opacity .2s}}
