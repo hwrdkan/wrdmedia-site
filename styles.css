@@ -749,3 +749,60 @@ input:focus,textarea:focus{border-color:var(--accent-text);box-shadow:0 0 0 3px 
 .steps::after{background:linear-gradient(180deg,var(--accent-text) 0%,var(--accent) 65%,var(--accent-deep) 100%);box-shadow:0 0 14px rgba(79,127,181,.45)}
 .progress{background:linear-gradient(90deg,var(--accent),var(--accent-text));box-shadow:0 0 12px rgba(79,127,181,.5)}
 ::selection{background:var(--accent);color:#fff}
+/* ---------- v10: retro 3D pop. Red and blue are structural only; all text is black and white ---------- */
+:root{
+  --red:#D8473D;--blue:#3F72D9;
+  --ink:#FFFFFF;--ink-soft:#B9BEC6;--silver:#C3C9D1;
+  --gold:#C3C9D1;--gold-hi:#FFFFFF;--gold-lo:#7C838D;
+  --silver-grad:linear-gradient(90deg,var(--red) 0 50%,var(--blue) 50% 100%);--gold-grad:var(--silver-grad);
+  --pop:4px 4px 0 var(--blue);--pop-red:4px 4px 0 var(--red)}
+
+/* All text is black and white. Red and blue never color a word. */
+.label,.cf3d__in .label,.hero__loc{color:var(--ink-soft)}
+.crumbs a:hover,.foot nav a:hover,.foot__areas a:hover,.cf3d__link:hover,.prose__body a:hover{color:#FFFFFF}
+.cf3d__link,.prose__body a{text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:4px}
+::selection{background:var(--blue);color:#fff}
+
+/* Headlines: a slight red and blue misregistration, like 3D glasses. Hero is strongest. */
+h1,h2{-webkit-text-stroke:0;text-shadow:-1px 0 0 var(--red),1px 0 0 var(--blue)}
+h1{text-shadow:-3px 0 0 var(--red),3px 0 0 var(--blue)}
+.hero__in>h1{text-shadow:-3px 0 0 var(--red),3px 0 0 var(--blue)}
+.cf3d__in h3,.flow h3,.card h3{text-shadow:none}
+
+/* Dividers: a two-tone line */
+.rule{height:2px;background:linear-gradient(90deg,transparent,var(--red) 14%,var(--red) 50%,var(--blue) 50%,var(--blue) 86%,transparent);opacity:1}
+
+/* Buttons: flat white with a hard blue offset, pressed flat like a physical key */
+.btn,.btn:hover{background:#FFFFFF;color:#0A0B0D;border:2px solid #0A0B0D;box-shadow:var(--pop);
+  transition:transform .12s var(--ease),box-shadow .12s var(--ease),background .12s}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:#FFFFFF;transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--blue);border-color:#0A0B0D}}
+.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--blue)}
+.btn--ghost,.btn--ghost:hover{background:transparent;color:#FFFFFF;border:2px solid rgba(255,255,255,.85);box-shadow:var(--pop-red)}
+@media (hover:hover) and (pointer:fine){.btn--ghost:hover{background:rgba(255,255,255,.06);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--red);border-color:#FFFFFF}}
+.btn--ghost:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--red)}
+.btn--sm{min-height:44px}
+.sticky-cta{background:#FFFFFF;color:#0A0B0D;border-top:3px solid #0A0B0D;box-shadow:0 -4px 0 var(--blue)}
+
+/* Cards: hard blue offset, flat charcoal */
+.card{background:var(--panel);border:1px solid rgba(255,255,255,.18);box-shadow:6px 6px 0 rgba(63,114,217,.7)}
+.leaks .leak:nth-child(2){box-shadow:6px 6px 0 rgba(216,71,61,.7)}
+.linkcard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 rgba(63,114,217,.85)}
+
+/* Featured cards and the booking form: red and blue offset outline, like a misprinted plate */
+.glow{box-shadow:-3px -3px 0 var(--red),3px 3px 0 var(--blue)}
+.glow::before{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.14));opacity:1}
+.flow.card.glow,.cf3d__card.glow{background:var(--panel)}
+.page-hero__photo.glow{box-shadow:-4px -4px 0 var(--red),4px 4px 0 var(--blue)}
+
+/* Form fields and focus */
+input:focus,textarea:focus{border-color:#FFFFFF;box-shadow:3px 3px 0 var(--blue)}
+:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px;box-shadow:3px 3px 0 var(--blue)}
+.flow__steps i.on{background:linear-gradient(90deg,var(--red) 0 50%,var(--blue) 50% 100%)}
+
+/* Progress and scroll line */
+.progress{background:linear-gradient(90deg,var(--red) 0 50%,var(--blue) 50% 100%);box-shadow:none}
+.steps::after{background:linear-gradient(180deg,var(--red) 0 50%,var(--blue) 50% 100%);box-shadow:none}
+.ticks li::before{background:var(--blue);box-shadow:2px 2px 0 var(--red)}
+
+@media (prefers-reduced-motion:reduce){.btn,.btn--ghost,.linkcard{transition:none}}
+@media (max-width:759px){.card{box-shadow:4px 4px 0 rgba(63,114,217,.7)}.leaks .leak:nth-child(2){box-shadow:4px 4px 0 rgba(216,71,61,.7)}.hero__in>h1,h1{text-shadow:-2px 0 0 var(--red),2px 0 0 var(--blue)}}
