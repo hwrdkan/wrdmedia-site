@@ -20,3 +20,7 @@
 
 /pergola/src/style.css
   Cache-Control: no-cache
+
+/resume/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache
