@@ -1,7 +1,8 @@
 /* ===== CONFIG: everything editable lives here ===== */
 const CONFIG = {
   businessName: "WRD Media",
-  email: "HwrdKan@gmail.com",
+  email: "hk@wrdmedia.com",
+  formInbox: "HwrdKan@gmail.com",  // FormSubmit stays on the already-activated inbox
   phone: "(424) 236-1139",
   phoneTel: "+14242361139",
   city: "Frisco, TX",
@@ -442,7 +443,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
     let sent = true;
     try {
       const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 8000);
-      const r = await fetch(CONFIG.formEndpoint + CONFIG.email, {
+      const r = await fetch(CONFIG.formEndpoint + CONFIG.formInbox, {
         method: "POST", signal: ctl.signal,
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ name, email, phone, business, message, _subject: "New WRD Media inquiry from " + name, _honey: "", _captcha: "false" }),
@@ -480,7 +481,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
       msg.textContent = "Please fill in your name, a valid email, your business and a message."; show(msg); return;
     }
     btn.disabled = true; btn.textContent = "Sending…";
-    fetch(CONFIG.formEndpoint + CONFIG.email, {
+    fetch(CONFIG.formEndpoint + CONFIG.formInbox, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({

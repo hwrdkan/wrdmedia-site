@@ -14,4 +14,4 @@ Rules in `worker/index.js`: weekdays 9am-5pm CT, 30-min slots, 24h minimum lead 
 
 ## Contact form
 
-Uses FormSubmit. The first submission sends an activation email to HwrdKan@gmail.com that must be confirmed once.
+Uses FormSubmit. The first submission sends an activation email to HwrdKan@gmail.com (the form inbox; the public address is hk@wrdmedia.com) that must be confirmed once.
