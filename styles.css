@@ -559,3 +559,6 @@ main:focus{outline:none}
 .hero__in>.hero__sub{max-width:min(100%,1000px)}
 .hero__sub span{display:block}
 .hero__sub span+span{margin-top:.5em}
+
+/* Product names as typographic wordmarks until logos exist */
+.cf3d__in h3{font-size:clamp(1.75rem,1.3rem + 1.6vw,2.5rem);text-transform:uppercase;letter-spacing:.04em;font-stretch:125%;font-weight:900;line-height:1;text-shadow:0 0 18px rgba(255,255,255,.28)}
