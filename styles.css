@@ -496,3 +496,9 @@ main:focus{outline:none}
 
 @media(max-width:759px){.products__more .btn{width:100%}.cf3d__stage{height:35rem}}
 @media(prefers-reduced-motion:reduce){.cf3d__card{transition:opacity .2s}}
+
+/* ---------- Hero headline: three verbs, in caps like the logo ---------- */
+.hero__in>h1{text-transform:uppercase;font-size:clamp(1.75rem,.85rem + 3.4vw,3.5rem);letter-spacing:-.02em;line-height:1.04;max-width:none}
+.hero__in>h1 span{display:block}
+
+@media(max-width:559px){.hero__in>h1{font-size:5.9vw}}
