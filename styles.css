@@ -723,3 +723,29 @@ input:focus,textarea:focus{border-color:var(--slate-text);box-shadow:0 0 0 3px r
 
 /* Hourglass sand: neutral, not bronze */
 .sand{fill:#74808B}
+/* ---------- v9: one palette. Cool neutrals plus a single steel-blue accent ---------- */
+:root{
+  --black:#0A0B0D;--panel:#14161A;
+  --ink:#FFFFFF;--ink-soft:#B7BDC6;--silver:#C3C9D1;
+  --accent:#4F7FB5;--accent-text:#8DB3DD;--accent-deep:#1F4272;
+  --hair:rgba(255,255,255,.12);--hair-strong:rgba(255,255,255,.32);
+  --gold:var(--accent-text);--gold-hi:var(--accent-text);--gold-lo:var(--accent-deep);
+  --silver-grad:linear-gradient(90deg,var(--accent),var(--accent-text));--gold-grad:var(--silver-grad)}
+body{background:var(--black)}
+.card{background:var(--panel)}
+input,textarea{background:#0F1114}
+
+/* Accent roles: eyebrow labels, bullets, links, focus, scroll line, ring. Nothing else is colored. */
+.label,.cf3d__in .label,.hero__loc{color:var(--accent-text)}
+.rule{background:linear-gradient(90deg,transparent,rgba(255,255,255,.2) 18%,rgba(255,255,255,.2) 82%,transparent);opacity:1}
+.ticks li::before{background:var(--accent)}
+.crumbs a:hover,.foot nav a:hover,.foot__areas a:hover,.cf3d__link:hover,.prose__body a:hover{color:var(--accent-text)}
+.btn--ghost,.btn--ghost:hover{border-color:var(--accent)}
+@media (hover:hover) and (pointer:fine){.btn--ghost:hover{background:rgba(79,127,181,.14);border-color:var(--accent-text)}}
+.btn--ghost:active{background:rgba(79,127,181,.22)}
+input:focus,textarea:focus{border-color:var(--accent-text);box-shadow:0 0 0 3px rgba(79,127,181,.4)}
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
+.glow,.glow--silver{--glow-a:var(--accent);--glow-hi:var(--accent-text);--glow-lo:var(--accent-deep)}
+.steps::after{background:linear-gradient(180deg,var(--accent-text) 0%,var(--accent) 65%,var(--accent-deep) 100%);box-shadow:0 0 14px rgba(79,127,181,.45)}
+.progress{background:linear-gradient(90deg,var(--accent),var(--accent-text));box-shadow:0 0 12px rgba(79,127,181,.5)}
+::selection{background:var(--accent);color:#fff}
