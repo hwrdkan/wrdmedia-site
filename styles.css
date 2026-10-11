@@ -40,7 +40,7 @@ p{margin:0}
 
 /* ---------- logo (hero to header) ---------- */
 .logo{position:fixed;left:0;top:0;z-index:70;display:block;width:min(78vw,560px);aspect-ratio:1291/380;transform-origin:0 0;will-change:transform;-webkit-tap-highlight-color:transparent}
-.logo__img{position:absolute;inset:0;background:var(--silver-grad);-webkit-mask:url(assets/wrd-mark.png) center/contain no-repeat;mask:url(assets/wrd-mark.png) center/contain no-repeat;animation:logoIn .8s var(--ease) .1s both}
+.logo__img{position:absolute;inset:0;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(assets/wrd-mark.png) center/contain no-repeat;mask:url(assets/wrd-mark.png) center/contain no-repeat;animation:logoIn .8s var(--ease) .1s both}
 .logo__glowwrap{position:absolute;inset:0;opacity:calc(1 - var(--dock,0));pointer-events:none}
 .logo__glow{position:absolute;inset:-60% -25%;background:radial-gradient(closest-side,rgba(225,230,238,.55),rgba(225,230,238,0) 72%);animation:glowPulse 1.2s ease-out .25s both}
 @keyframes logoIn{from{opacity:0}to{opacity:1}}
@@ -305,7 +305,7 @@ input:focus,textarea:focus{border-color:#fff;outline:none;box-shadow:0 0 0 3px r
 
 /* ---------- footer + sticky CTA ---------- */
 .foot{border-top:1px solid var(--hair);padding:clamp(48px,6vw,80px) 0 32px}
-.foot__mark{display:block;width:min(100%,640px);aspect-ratio:1400/350;margin:0 auto 32px;background:var(--silver-grad);-webkit-mask:url(assets/wrd-mark-inverse.png) center/contain no-repeat;mask:url(assets/wrd-mark-inverse.png) center/contain no-repeat;opacity:.9}
+.foot__mark{display:block;width:min(100%,640px);aspect-ratio:1400/350;margin:0 auto 32px;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(assets/wrd-mark-inverse.png) center/contain no-repeat;mask:url(assets/wrd-mark-inverse.png) center/contain no-repeat;opacity:.9}
 .foot__row{display:flex;flex-direction:column;gap:16px;color:var(--ink-soft);font-size:.9375rem}
 .foot nav{display:flex;gap:24px;flex-wrap:wrap}
 .foot nav a{text-decoration:none;min-height:24px}
@@ -399,7 +399,7 @@ main:focus{outline:none}
 /* ---------- About page ---------- */
 .pagebar{position:sticky;top:0;z-index:60;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--gutter);background:rgba(0,0,0,.86);border-bottom:1px solid var(--hair);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .pagebar__mark{display:flex;align-items:center;min-height:48px}
-.pagebar__mark .mark__img{display:block;width:96px;aspect-ratio:1291/380;background:var(--silver-grad);-webkit-mask:url(/assets/wrd-mark.png) center/contain no-repeat;mask:url(/assets/wrd-mark.png) center/contain no-repeat}
+.pagebar__mark .mark__img{display:block;width:96px;aspect-ratio:1291/380;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(/assets/wrd-mark.png) center/contain no-repeat;mask:url(/assets/wrd-mark.png) center/contain no-repeat}
 .page-hero{padding-top:clamp(56px,9vw,120px)}
 .page-hero__in{display:grid;gap:24px;max-width:860px}
 .page-hero h1{font-size:clamp(2.25rem,1.3rem + 4.2vw,4.25rem)}

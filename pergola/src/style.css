@@ -28,7 +28,7 @@ button[aria-pressed=true]{background:#1d1d20;border-color:var(--silver);color:#f
 
 .topbar{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:28px;padding:0 4vw}
 .identity{display:flex;align-items:center;gap:14px;color:var(--ink);text-decoration:none;font:800 17px/1 Archivo,Geist,sans-serif;font-stretch:112%;letter-spacing:-.02em}
-.wrdmark{display:block;width:84px;aspect-ratio:1291/380;background:var(--silver-grad);-webkit-mask:url(../../assets/wrd-mark.png) center/contain no-repeat;mask:url(../../assets/wrd-mark.png) center/contain no-repeat}
+.wrdmark{display:block;width:84px;aspect-ratio:1291/380;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(../../assets/wrd-mark.png) center/contain no-repeat;mask:url(../../assets/wrd-mark.png) center/contain no-repeat}
 .identity .sep{width:1px;height:22px;background:var(--line-strong)}
 .local-label{margin-left:auto;color:var(--muted);font-size:13px}
 main{max-width:1600px;margin:auto;padding:30px 4vw 50px}
