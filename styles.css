@@ -425,3 +425,5 @@ main:focus{outline:none}
 @media(max-width:759px){.about__more .btn{width:100%}}
 
 @media(max-width:559px){.timeline li{grid-template-columns:1fr;gap:8px}.timeline__y{font-size:2rem}}
+
+.timeline__y small{display:block;margin-top:6px;font:600 .9375rem/1.2 var(--sans);letter-spacing:.04em;color:var(--silver);-webkit-text-stroke:0;text-transform:none}
