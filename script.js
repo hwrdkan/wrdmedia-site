@@ -79,7 +79,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   }
 
   // Play when in view. Loops pause off screen; one-shots play once.
-  const loops = new Set(["funnel", "glass", "phone", "minichat"]);
+  const loops = new Set(["funnel", "glass", "phone", "minichat", "wheel"]);
   const items = [...document.querySelectorAll("[data-info]")];
   if (reduce || !("IntersectionObserver" in window)) return;
   const io = new IntersectionObserver(list => list.forEach(en => {

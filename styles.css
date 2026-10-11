@@ -545,3 +545,11 @@ main:focus{outline:none}
 /* ---------- Subheadings: Archivo (the site's headline family), lighter and slightly wide ---------- */
 .hero__sub,.lede,.page-hero p,.close__head .lede{font-family:var(--display);font-stretch:106%;font-weight:500;letter-spacing:-.005em;line-height:1.5}
 .flow__hint,.flow__ok{font-family:var(--display);font-stretch:104%;font-weight:450}
+
+/* ---------- Spinning-wheel infographic: lots of motion, no distance ---------- */
+.wheel{transform-box:fill-box;transform-origin:50% 50%}
+.dust{fill:none;stroke:var(--silver);stroke-width:2;stroke-linecap:round;opacity:.5}
+.play .wheel{animation:spin 2.2s linear infinite}
+.play .dust{animation:dust 1.1s ease-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes dust{0%{opacity:.7;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}
