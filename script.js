@@ -239,6 +239,26 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   });
 })();
 
+/* ---------- Scroll moment: "How it works" builds a line as you scroll ---------- */
+(function stepsTrack() {
+  const ol = $(".steps");
+  if (!ol) return;
+  const items = [...ol.children];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let q = false;
+  function draw() {
+    q = false;
+    const r = ol.getBoundingClientRect(), vh = innerHeight, mark = vh * 0.62;
+    const p = reduce ? 1 : Math.min(1, Math.max(0, (mark - r.top) / r.height));
+    ol.style.setProperty("--p", p.toFixed(4));
+    items.forEach(li => li.classList.toggle("is-lit", reduce || li.getBoundingClientRect().top + 44 < mark));
+  }
+  const queue = () => { if (!q) { q = true; requestAnimationFrame(draw); } };
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", queue);
+  draw();
+})();
+
 /* ---------- Booking ---------- */
 (function booking() {
   if (!$("#b-days")) return;
