@@ -15,7 +15,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0C'/%3E%3Cpath d='M5 8h6v12l3 3h4l3-3V8h6v14l-5 5H10l-5-5z' fill='none' stroke='%23C8CDD5' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/wrd-mark.png" as="image">
-<link rel="stylesheet" href="styles.css?v=20261010r">
+<link rel="stylesheet" href="styles.css?v=20261010s">
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.rule{transform:none!important}.hero__in>*{animation:none!important;opacity:1!important}.logo__img{opacity:1!important;animation:none!important}</style></noscript>
 </head>
 <body>
@@ -30,6 +30,7 @@
 </a>
 
 <header class="bar" id="bar">
+  <nav class="bar__nav" aria-label="Main"><a href="/services/">Services</a><a href="/about/">About</a></nav>
   <a class="btn btn--sm" href="#book">Book a Call</a>
 </header>
 
@@ -93,181 +94,66 @@
 
 <hr class="rule">
 
-<section id="offers" class="section">
+<section id="products" class="section">
   <div class="wrap">
     <h2 class="reveal">Three ways we put money in your pocket.</h2>
-
-    <article class="offer card glow glow--silver reveal is-collapsed" id="offer-3">
-      <div class="offer__head">
-        <p class="label">Get found: The AI Answer Takeover</p>
-        <h3>When someone asks AI for the best [your trade] in [your city], it names you.</h3>
-        <p class="outcome">Not your competitor. If you're not in the answer, you don't exist.</p>
-      </div>
-
-      <figure class="info flip" data-info="flip" role="button" tabindex="0" aria-label="Replay the animation">
-        <div class="info__stage flip__stage">
-          <div class="flip__q"><span>Who's the best roofer in Frisco?</span></div>
-          <div class="flip__a">
-            <span class="flip__comp">Competitor Roofing Co.<i class="flip__x" aria-hidden="true"></i></span>
-            <span class="flip__you"><span class="flip__type">Your Business Name</span></span>
-          </div>
-          <p class="flip__ba"><span class="ba ba--before">Before</span><span aria-hidden="true"> → </span><span class="ba ba--after">After</span></p>
+    <div class="cf3d reveal" data-coverflow data-start="1" role="group" aria-roledescription="carousel" aria-label="Our three services">
+      <div class="cf3d__stage">
+        <div class="cf3d__cards">
+      <article class="cf3d__card glow" data-cf-item>
+        <div class="cf3d__in">
+          <svg class="cf3d__icon" viewBox="0 0 40 40" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h28v18H18l-8 7v-7H6z"/><path d="M13 16h14M13 21h8"/></svg>
+          <p class="label">Get found</p>
+          <h3>The AI Answer Takeover</h3>
+          <p class="cf3d__out">When someone asks AI for the best [your trade] in [your city], it names you. Not your competitor.</p>
+          <p class="cf3d__price"><b>$3,000</b> sprint <span>+</span> <b>$1,000</b> a month</p>
+          <div class="cf3d__actions"><a class="btn btn--sm" href="#book">Book a Call</a><a class="cf3d__link" href="/services/#offer-3">See what's included</a></div>
         </div>
-        <figcaption>We make the AI say your name. <em>Tap to replay.</em></figcaption>
-      </figure>
-
-      <div class="offer__buy">
-        <p class="price"><b>$3,000</b> one-time sprint<br><b>$1,000</b> a month <span>monitoring</span></p>
-        <a class="btn btn--block" href="#book">Book a Call</a>
-        <button class="offer__toggle" type="button" aria-expanded="false" aria-controls="more-3">See what's included</button>
+      </article>
+      <article class="cf3d__card glow" data-cf-item>
+        <div class="cf3d__in">
+          <svg class="cf3d__icon" viewBox="0 0 40 40" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 5l14 7v16l-14 7-14-7V12z"/><path d="M6 12l14 7 14-7M20 19v16"/></svg>
+          <p class="label">Close more: Flagship</p>
+          <h3>The Pre-Sold Customer Machine</h3>
+          <p class="cf3d__out">Every prospect who calls has already designed their project in 3D and agreed to the price range.</p>
+          <p class="cf3d__price"><b>$5,000</b> setup <span>+</span> <b>$500</b> a month</p>
+          <div class="cf3d__actions"><a class="btn btn--sm" href="#book">Book a Call</a><a class="cf3d__link" href="/services/#offer-1">See what's included</a></div>
+        </div>
+      </article>
+      <article class="cf3d__card glow" data-cf-item>
+        <div class="cf3d__in">
+          <svg class="cf3d__icon" viewBox="0 0 40 40" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 33h30"/><path d="M9 28l8-9 6 5 10-14"/><path d="M27 10h6v6"/></svg>
+          <p class="label">Done for you</p>
+          <h3>Your AI Growth Department</h3>
+          <p class="cf3d__out">A full marketing department's output for less than the cost of one hire.</p>
+          <p class="cf3d__price"><b>$10,000</b> a month</p>
+          <div class="cf3d__actions"><a class="btn btn--sm" href="#book">Book a Call</a><a class="cf3d__link" href="/services/#offer-4">See what's included</a></div>
+        </div>
+      </article>
+        </div>
       </div>
+    </div>
+    <p class="products__more"><a class="btn btn--ghost" href="/services/">See everything that's included</a></p>
 
-      <div class="offer__more" id="more-3">
-        <ul class="ticks">
-          <li>We check where you show up (and don't) when people ask ChatGPT, Gemini, Perplexity, and Google</li>
-          <li>We fix your Google listing: hours, services, photos, and reviews</li>
-          <li>We clean up bad links pointing at your site</li>
-          <li>We write the pages and answers AI quotes when it recommends a business like yours</li>
-          <li>Before and after screenshots, so you can see the change</li>
-          <li>Monthly proof you're showing up, plus a fresh check every month</li>
-        </ul>
-        <p class="derisk"><b>How we de-risk it.</b> You see the before and after screenshots of your AI answers, or you don't pay the balance.</p>
-        <p class="scarce">6 sprints per month. The audit alone takes real manual work.</p>
-        <p class="needs"><b>What we need from you.</b> Your business details, your service area, and access to your Google listing. Approve our content within 48 hours.</p>
-        <p class="anchor">A single AI-referred customer often covers the entire sprint. Almost nobody is selling this yet.</p>
-      </div>
-    </article>
-
-    <article class="offer card glow reveal is-collapsed" id="offer-1">
-      <div class="offer__head">
-        <p class="label">Close more: Flagship</p>
-        <h3>The Pre-Sold Customer Machine</h3>
-        <p class="outcome">Every prospect who calls has already designed their project, seen it in 3D, and agreed to the price range. Before your salesperson spends a single minute.</p>
-      </div>
-
-      <figure class="info funnel" data-info="funnel">
-        <div class="info__stage" data-funnel aria-hidden="true"></div>
-        <figcaption>Your sales team only talks to the pre-sold ones.</figcaption>
-      </figure>
-
-      <div class="tryits">
-      <div class="tryit" id="try-3d">
-        <p class="label">Try it yourself: 3D designer</p>
-        <div class="tryit__frame" data-embed="/pergola/?v=20261010r" data-title="3D pergola designer" data-tall="0">
+    <div class="trystrip reveal">
+      <p class="label">Try the tools yourself</p>
+      <div class="trystrip__grid">
+        <div class="tryit__frame" data-embed="/P261010s" data-title="3D pergola designer" data-sheet="always">
           <button class="tryit__launch" type="button" aria-label="Launch the 3D pergola designer">
             <strong>Design a pergola in 3D</strong>
-            <small>The same tool your customers would use on your website. Pick a size, style, and finish.</small>
-            <span class="btn">Launch the tool</span>
+            <small>The same tool your customers would use on your website.</small>
+            <span class="btn btn--sm">Launch the tool</span>
           </button>
         </div>
-        <p class="tryit__links"><a href="/pergola/">Open it full screen</a></p>
-      </div>
-      <div class="tryit" id="try-turf">
-        <p class="label">Try it yourself: photo visualizer</p>
-        <div class="tryit__frame" data-embed="https://turf.wrdmedia.com/?v=20261010r" data-title="Turf photo visualizer" data-tall="1">
+        <div class="tryit__frame" data-embed="https://turf.wrdmedia.com/?v=20261010s" data-title="Turf photo visualizer" data-sheet="always">
           <button class="tryit__launch" type="button" aria-label="Launch the turf photo visualizer">
-            <strong>See turf on your own yard</strong>
-            <small>Upload a photo, pick a turf, and explore a putting green. A second tool built the same way, for a different trade.</small>
-            <span class="btn">Launch the tool</span>
+            <strong>See turf on your yard</strong>
+            <small>Upload a photo, pick a turf, explore a putting green.</small>
+            <span class="btn btn--sm">Launch the tool</span>
           </button>
         </div>
-        <p class="tryit__links"><a href="https://turf.wrdmedia.com">Open it full screen</a></p>
       </div>
-      </div>
-
-      <div class="offer__buy">
-        <p class="price"><b>$5,000</b> one-time setup<br><b>$500</b> a month <span>hosting, support and updates</span></p>
-        <a class="btn btn--block" href="#book">Book a Call</a>
-        <button class="offer__toggle" type="button" aria-expanded="false" aria-controls="more-1">See what's included</button>
-      </div>
-
-      <div class="offer__more" id="more-1">
-        <ul class="ticks">
-          <li>Customers design their project in 3D on your website: sizes, colors, options, day and night views</li>
-          <li>Your sales team uses the same tool on a tablet in the field</li>
-          <li>Built-in pricing: shoppers see an estimate and qualify themselves</li>
-          <li>Covers your first product line. Extra lines are quoted separately.</li>
-          <li>We build it from your product specs, price sheet, and photos</li>
-          <li>30 days of tweaks plus a training video for your team</li>
-        </ul>
-        <p class="derisk"><b>How we de-risk it.</b> Live in 14 days or you don't pay the balance. 90 days of tweaks until your team loves it.</p>
-        <p class="scarce">Howard personally builds 4 per month. When the month's full, waitlist.</p>
-        <p class="needs"><b>What we need from you.</b> Your product specs, price sheet, logo, and photos. One person who approves. Access to your website.</p>
-        <p class="anchor">One lost $15,000 job pays for this three times over.</p>
-        <p class="addon"><b>Add an AI receptionist</b> that answers, qualifies, and books. Nights, weekends, holidays. $1,500 setup and $500 a month, available to visualizer clients.</p>
-      </div>
-    </article>
-
-    <article class="offer card glow reveal is-collapsed" id="offer-4">
-      <div class="offer__head">
-        <p class="label">Done for you: Your AI Growth Department</p>
-        <h3>A full marketing department's output for less than the cost of one hire.</h3>
-        <p class="outcome">A marketing director costs $150k+ a year before benefits. This is senior leadership starting Monday.</p>
-      </div>
-
-      <figure class="info dash" data-info="dash">
-        <div class="info__stage dash__card" aria-hidden="true">
-          <div class="dash__top"><span class="dash__title">Revenue</span><span class="dash__week">Week 12 <svg viewBox="0 0 16 16" width="16" height="16" focusable="false"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5"/></svg></span></div>
-          <svg class="dash__chart" viewBox="0 0 600 200" focusable="false">
-            <g class="grid"><line x1="0" y1="50" x2="600" y2="50"/><line x1="0" y1="100" x2="600" y2="100"/><line x1="0" y1="150" x2="600" y2="150"/></g>
-            <path class="area" d="M0 180L60 172L120 168L180 150L240 144L300 120L360 108L420 80L480 66L540 38L600 22V200H0Z"/>
-            <path class="line" pathLength="1" d="M0 180L60 172L120 168L180 150L240 144L300 120L360 108L420 80L480 66L540 38L600 22"/>
-          </svg>
-          <ul class="dash__checks">
-            <li><svg viewBox="0 0 20 20" width="20" height="20" focusable="false"><path pathLength="1" d="M4 10.5l4 4 8-9"/></svg>Sprint shipped</li>
-            <li><svg viewBox="0 0 20 20" width="20" height="20" focusable="false"><path pathLength="1" d="M4 10.5l4 4 8-9"/></svg>Content live</li>
-            <li><svg viewBox="0 0 20 20" width="20" height="20" focusable="false"><path pathLength="1" d="M4 10.5l4 4 8-9"/></svg>Systems tuned</li>
-            <li><svg viewBox="0 0 20 20" width="20" height="20" focusable="false"><path pathLength="1" d="M4 10.5l4 4 8-9"/></svg>Report delivered</li>
-          </ul>
-        </div>
-        <figcaption>Senior-level output. Every single week.</figcaption>
-      </figure>
-
-      <div class="offer__buy">
-        <p class="price"><b>$10,000</b> a month</p>
-        <a class="btn btn--block" href="#book">Book a Call</a>
-        <button class="offer__toggle" type="button" aria-expanded="false" aria-controls="more-4">See what's included</button>
-      </div>
-
-      <div class="offer__more" id="more-4">
-        <ul class="ticks">
-          <li>Social media setup and management: profiles optimized, content calendar built</li>
-          <li>Content creation: posts, graphics, short-form video concepts</li>
-          <li>Posting and engaging: we post, we reply, we keep it alive</li>
-          <li>Organic outreach: DMs, comments, and community engagement that drive inbound</li>
-          <li>Website build and updates with SEO and GEO done right: your site stays current and shows up in search and AI answers</li>
-          <li>One improvement shipped every single week</li>
-          <li>Monthly report: what we did and what it earned you</li>
-          <li>Two strategy calls a month</li>
-        </ul>
-        <p class="derisk"><b>How we de-risk it.</b> 90-day commitment, then month-to-month. If the numbers don't justify it, part ways and keep everything built.</p>
-        <p class="scarce">3 fractional clients max. That's all the calendar holds.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<hr class="rule">
-
-<section id="systems" class="section">
-  <div class="wrap partner">
-    <div class="partner__copy reveal">
-      <p class="label">Preferred partner</p>
-      <h2>Need systems behind the scenes?</h2>
-      <p class="lede">Your website brings them in. Systems keep them from slipping away.</p>
-      <p class="partner__intro">Through our preferred partner Agency Logics, we offer CRM and automation builds that run your back office:</p>
-      <ul class="ticks">
-        <li>AI assistants that nurture leads, qualify customers, and book appointments automatically</li>
-        <li>Automated workflows that follow up so no opportunity goes cold</li>
-        <li>Tools that assist your staff, keep them efficient, and hold them accountable</li>
-        <li>Paid advertising that actually converts: Google PPC, Local Services Ads, and Meta (Facebook and Instagram) campaigns managed for results</li>
-      </ul>
     </div>
-    <a class="partner__card card glow glow--silver reveal" href="https://agencylogics.com" target="_blank" rel="noopener" aria-label="Visit Agency Logics, opens in a new tab">
-      <img src="assets/agency-logics.webp" width="1200" height="528" alt="Agency Logics" loading="lazy" decoding="async">
-      <p>Built by Agency Logics. Recommended by WRD Media.</p>
-      <span class="btn btn--ghost">Visit agencylogics.com</span>
-    </a>
   </div>
 </section>
 
@@ -291,11 +177,6 @@
     <h2 class="reveal">Run by someone who's actually built this stuff.</h2>
     <div class="reveal">
       <p class="lede">Howard Kan has spent 15+ years in media, marketing, and operations. Now he builds smart tools for local businesses: 3D sales tools, AI assistants that answer your phones, and systems that keep customers coming in. No agency. No account managers. You work directly with the person who builds it.</p>
-      <ul class="ticks">
-        <li>15+ years in media, marketing, and operations</li>
-        <li>Real AI tools built and shipped, not just talked about</li>
-        <li>Based in Frisco, TX</li>
-      </ul>
       <p class="about__more"><a class="btn btn--ghost" href="/about/">Read the full story</a></p>
     </div>
   </div>
@@ -353,13 +234,13 @@
     <span class="foot__mark" role="img" aria-label="WRD"></span>
     <div class="foot__row">
       <p>© 2026 WRD Media (HKAN LLC). Frisco, TX.</p>
-      <nav aria-label="Footer"><a href="#offers">Offers</a><a href="#how">How it works</a><a href="#about">About</a><a href="#book">Book</a><a href="#contact">Contact</a></nav>
+      <nav aria-label="Footer"><a href="/services/">Services</a><a href="#how">How it works</a><a href="/about/">About</a><a href="#book">Book</a><a href="#contact">Contact</a></nav>
     </div>
   </div>
 </footer>
 
 <a class="sticky-cta" href="#book">Book a Free Call</a>
 
-<script src="script.js?v=20261010r" defer></script>
+<script src="script.js?v=20261010s" defer></script>
 </body>
 </html>
