@@ -92,8 +92,8 @@ p{margin:0}
 
 /* ---------- cards + glow ring ---------- */
 .card{background:linear-gradient(180deg,#0B0B0C,#030303);border:1px solid var(--hair);border-radius:var(--r);padding:24px;box-shadow:var(--shadow)}
-.glow{position:relative;isolation:isolate;--glow-a:#E6B422;--glow-hi:#FFF4C2;--glow-lo:#8F6200;--glow-dark:rgba(255,255,255,.16)}
-.glow--silver{--glow-a:#E6B422;--glow-hi:#FFF4C2;--glow-lo:#8F6200}
+.glow{position:relative;isolation:isolate;--glow-a:#2A5CAA;--glow-hi:#7FA8E6;--glow-lo:#0E2A55;--glow-dark:rgba(255,255,255,.16)}
+.glow--silver{--glow-a:#2A5CAA;--glow-hi:#7FA8E6;--glow-lo:#0E2A55}
 .glow::before{content:"";position:absolute;inset:-1px;z-index:2;padding:1.5px;border-radius:inherit;pointer-events:none;
   background:linear-gradient(180deg,var(--glow-hi),var(--glow-a) 38%,var(--glow-lo) 100%);opacity:.8;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask-composite:exclude}
