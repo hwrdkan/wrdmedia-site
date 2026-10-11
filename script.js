@@ -3,8 +3,8 @@ const CONFIG = {
   businessName: "WRD Media",
   email: "hk@wrdmedia.com",
   formInbox: "HwrdKan@gmail.com",  // FormSubmit stays on the already-activated inbox
-  phone: "(424) 236-1139",
-  phoneTel: "+14242361139",
+  phone: "(469) 213-0162",
+  phoneTel: "+14692130162",
   city: "Frisco, TX",
   timezone: "America/Chicago",
   bookingWorkerUrl: "https://wrdmedia-booking.hwrdkan.workers.dev",
