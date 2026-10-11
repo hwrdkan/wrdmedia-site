@@ -681,3 +681,45 @@ input:focus,textarea:focus{border-color:rgba(242,199,154,.65);box-shadow:inset 0
 @media (prefers-reduced-motion:reduce){.btn::after{animation:none;opacity:0}}
 @media (max-width:759px){.btn,.btn--ghost{-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%)}.card{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.btn{background:rgba(70,42,20,.9)}.btn--ghost{background:rgba(30,30,32,.9)}.card{background:#0c0c0d}input,textarea{background:#050505}}
+/* ---------- v8: black and white foundation, sage and slate accents, solid CTAs (dispatch 032) ---------- */
+:root{--black:#0B0B0C;--panel:#1A1A1C;--sage:#5A7D5A;--sage-text:#7FA67F;--slate:#5A7D9A;--slate-text:#8FB1CD;--ink-soft:#B4B8BE}
+body{background:#0B0B0C}
+
+/* Primary: the most solid thing on the page. No glass, no sheen, no gradient. */
+.btn,.btn:hover{background:#FFFFFF;background-image:none;color:#0B0B0C;border:1px solid #FFFFFF;text-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;font-weight:600;letter-spacing:.01em;
+  box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.btn::before,.btn::after{content:none;display:none;animation:none}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:#E9E9EA;border-color:#E9E9EA;box-shadow:0 12px 32px rgba(0,0,0,.5)}}
+.btn:active{transform:scale(.97);box-shadow:inset 0 2px 6px rgba(0,0,0,.25)}
+
+/* Secondary: ghost with a slate border */
+.btn--ghost,.btn--ghost:hover{background:transparent;color:#FFFFFF;border:1px solid var(--slate);box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+@media (hover:hover) and (pointer:fine){.btn--ghost:hover{background:rgba(90,125,154,.14);border-color:var(--slate-text);box-shadow:none}}
+.btn--ghost:active{background:rgba(90,125,154,.22);box-shadow:none}
+
+/* Sticky CTA matches the primary */
+.sticky-cta{background:#FFFFFF;border-top:1px solid #FFFFFF;color:#0B0B0C;text-shadow:none;font-weight:600;
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -8px 32px rgba(0,0,0,.5)}
+
+/* No ambient bronze stage behind buttons any more */
+.row:has(>.btn)::before,.about__cta::before{content:none;display:none}
+
+/* Cards and panels: charcoal, no blur */
+.card{background:var(--panel);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 16px 40px rgba(0,0,0,.45)}
+
+/* Form fields: quiet, slate focus */
+input,textarea{background:#101012;border-color:rgba(255,255,255,.22);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+input:focus,textarea:focus{border-color:var(--slate-text);box-shadow:0 0 0 3px rgba(90,125,154,.35)}
+
+/* Sage: small labels, dividers, checkmarks, link hovers */
+.label,.cf3d__in .label{color:var(--sage-text)}
+.rule{background:linear-gradient(90deg,transparent,rgba(90,125,90,.85) 18%,rgba(90,125,90,.85) 82%,transparent);opacity:1}
+.ticks li::before{background:var(--sage)}
+.crumbs a:hover,.foot nav a:hover,.foot__areas a:hover,.cf3d__link:hover,.prose__body a:hover{color:var(--sage-text)}
+.foot__areas span{color:#FFFFFF}
+
+/* Hourglass sand: neutral, not bronze */
+.sand{fill:#74808B}
