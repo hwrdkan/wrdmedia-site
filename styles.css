@@ -556,3 +556,6 @@ main:focus{outline:none}
 
 /* Hero subhead: wider measure so it wraps to fewer lines */
 .hero__in>.hero__sub{max-width:min(100%,880px)}
+.hero__in>.hero__sub{max-width:min(100%,1000px)}
+.hero__sub span{display:block}
+.hero__sub span+span{margin-top:.5em}
