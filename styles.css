@@ -553,3 +553,6 @@ main:focus{outline:none}
 .play .dust{animation:dust 1.1s ease-out infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes dust{0%{opacity:.7;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}
+
+/* Hero subhead: wider measure so it wraps to fewer lines */
+.hero__in>.hero__sub{max-width:min(100%,880px)}
