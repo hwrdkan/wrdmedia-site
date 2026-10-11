@@ -23,38 +23,13 @@ const fmtTime = iso => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timez
 const fmtDay = (iso, opts) => new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timezone, ...opts }).format(new Date(iso));
 const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezone }).format(new Date(iso)); // YYYY-MM-DD
 
-/* ---------- Logo: big in the hero, shrinks into the header on scroll ---------- */
-(function logo() {
-  const el = $("#logo"), slot = $("#logo-slot"), bar = $("#bar");
-  if (!el || !slot || !bar) return;
-  const RATIO = 1291 / 380, clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  let slotX, slotY0, endX, endY, endScale, dist;
-  function measure() {
-    const W = Math.min(innerWidth * 0.78, 560);
-    el.style.width = W + "px"; slot.style.width = W + "px";
-    const r = slot.getBoundingClientRect();
-    slotX = r.left; slotY0 = r.top + scrollY;
-    const tw = innerWidth < 760 ? 88 : 112;
-    endScale = tw / W;
-    endX = parseFloat(getComputedStyle($(".wrap")).paddingLeft) || 24;
-    endY = (bar.offsetHeight - tw / RATIO) / 2;
-    dist = Math.max(1, slotY0 - endY);
-    frame();
-  }
-  function frame() {
-    const y = scrollY, p = clamp(y / dist, 0, 1), e = p * p * (3 - 2 * p);
-    const s = 1 + (endScale - 1) * e, x = slotX + (endX - slotX) * e, yy = Math.max(slotY0 - y, endY);
-    el.style.transform = "translate3d(" + x + "px," + yy + "px,0) scale(" + s + ")";
-    el.style.setProperty("--dock", e.toFixed(3));
-    bar.classList.toggle("is-scrolled", y > 8);
-  }
-  let q = false;
-  const queue = () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; frame(); }); } };
-  addEventListener("scroll", queue, { passive: true });
-  addEventListener("resize", measure);
-  measure();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-  addEventListener("load", measure);
+/* ---------- Top bar gets its border once you scroll ---------- */
+(function barState() {
+  const bar = $("#bar");
+  if (!bar) return;
+  const set = () => bar.classList.toggle("is-scrolled", scrollY > 8);
+  addEventListener("scroll", set, { passive: true });
+  set();
 })();
 
 /* ---------- Scroll reveal: fade-in-up and gold rules, nothing else ---------- */
@@ -428,6 +403,66 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
         submit.disabled = false; submit.textContent = "Confirm booking";
       });
   });
+})();
+
+/* ---------- Contact flow: details, then business, then the calendar ---------- */
+(function flow() {
+  const root = $("[data-flow]");
+  if (!root) return;
+  const f1 = $("#f1"), f2 = $("#f2"), f3 = $("#f3"), bf = $("#b-form");
+  const slides = [f1, f2, f3], dots = [...root.querySelectorAll(".flow__steps i")];
+  const emailOk = v => /^\S+@\S+\.\S+$/.test(v);
+  function go(n) {
+    slides.forEach((s, i) => show(s, i === n));
+    dots.forEach((d, i) => d.classList.toggle("on", i <= n));
+    const first = slides[n].querySelector("input:not(.hp), textarea");
+    if (first && matchMedia("(pointer: fine)").matches) first.focus({ preventScroll: true });
+    root.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  const err = (el, msg) => { el.textContent = msg; show(el, !!msg); };
+
+  f1.addEventListener("submit", e => {
+    e.preventDefault();
+    const f = new FormData(f1);
+    const name = (f.get("name") || "").trim(), phone = (f.get("phone") || "").trim(), email = (f.get("email") || "").trim();
+    if (!name || phone.replace(/\D/g, "").length < 7 || !emailOk(email)) {
+      err($("#f1-err"), "Please enter your name, a phone number, and a valid email."); return;
+    }
+    err($("#f1-err"), ""); go(1);
+  });
+  $("#f2-back").addEventListener("click", () => go(0));
+
+  f2.addEventListener("submit", async e => {
+    e.preventDefault();
+    const a = new FormData(f1), b = new FormData(f2);
+    if (b.get("_honey")) return;
+    const name = (a.get("name") || "").trim(), phone = (a.get("phone") || "").trim(), email = (a.get("email") || "").trim();
+    const business = (b.get("business") || "").trim(), message = (b.get("message") || "").trim();
+    const btn = $("#f2-next"); btn.disabled = true; btn.textContent = "One moment…";
+    let sent = true;
+    try {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 8000);
+      const r = await fetch(CONFIG.formEndpoint + CONFIG.email, {
+        method: "POST", signal: ctl.signal,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name, email, phone, business, message, _subject: "New WRD Media inquiry from " + name, _honey: "", _captcha: "false" }),
+      });
+      clearTimeout(t); if (!r.ok) sent = false;
+    } catch (x) { sent = false; }
+    // carry the details into the booking form so nothing is typed twice
+    bf.name.value = name; bf.email.value = email; bf.phone.value = phone;
+    bf.notes.value = [business && "Business: " + business, message].filter(Boolean).join("\n");
+    bf.classList.add("is-prefilled");
+    $("#b-who").textContent = name + " \u00b7 " + email;
+    const first = name.split(/\s+/)[0];
+    $("#f3-note").textContent = sent
+      ? "Thanks, " + first + ". Your details are in and we'll reply within one business day. Pick a time to lock in your call."
+      : "Thanks, " + first + ". We couldn't send your details automatically, so please email " + CONFIG.email + " too. Pick a time below to lock in your call.";
+    btn.disabled = false; btn.textContent = "Next: pick a time";
+    go(2);
+  });
+
+  $("#b-edit").addEventListener("click", () => go(0));
 })();
 
 /* ---------- Contact form ---------- */

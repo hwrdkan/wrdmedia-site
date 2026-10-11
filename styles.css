@@ -502,3 +502,46 @@ main:focus{outline:none}
 .hero__in>h1 span{display:block}
 
 @media(max-width:559px){.hero__in>h1{font-size:5.9vw}}
+
+/* ---------- Logos: small one always in the bar, big one static in the hero (no docking animation) ---------- */
+.bar{justify-content:space-between}
+.bar__logo{display:flex;align-items:center;min-height:48px;margin-right:auto;-webkit-tap-highlight-color:transparent}
+.bar__mark{display:block;width:96px;aspect-ratio:1291/380;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(assets/wrd-mark.png?v=2) center/contain no-repeat;mask:url(assets/wrd-mark.png?v=2) center/contain no-repeat}
+@media(max-width:759px){.bar__mark{width:84px}}
+.hero__logo{width:min(78vw,560px);aspect-ratio:1291/380;background:#fff;filter:drop-shadow(0 0 .7px rgba(220,226,235,.95)) drop-shadow(0 0 9px rgba(200,205,213,.5));-webkit-mask:url(assets/wrd-mark.png?v=2) center/contain no-repeat;mask:url(assets/wrd-mark.png?v=2) center/contain no-repeat}
+.hero__in>.hero__logo{animation:none}
+.hero__in>*{animation-delay:0s!important}
+.hero__in{gap:24px}
+.bar{background:rgba(0,0,0,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* ---------- Two-step contact flow, then the calendar ---------- */
+.flow{display:grid;gap:20px;padding:clamp(20px,3vw,32px);align-content:start}
+.flow__steps{display:flex;gap:8px}
+.flow__steps i{flex:1;height:4px;border-radius:2px;background:var(--hair-strong);transition:background .3s}
+.flow__steps i.on{background:var(--silver-grad)}
+.flow__slide{display:grid;gap:16px;animation:fadeUp .4s ease-out both}
+.flow__slide[hidden]{display:none}
+.flow__slide h3{margin:0}
+.flow__hint{color:var(--ink-soft);font-size:.9375rem;margin-top:-8px}
+.flow__ok{color:var(--ink-soft);margin-top:-6px}
+.flow .booking{border:0;box-shadow:none;background:none;padding:0;margin:0}
+.flow form{margin-top:0}
+#b-form.is-prefilled>label{display:none}
+.b-who{display:none;color:var(--ink-soft)}
+#b-form.is-prefilled .b-who{display:block}
+.linkbtn{justify-self:start;border:0;background:none;color:#fff;font:600 .9375rem var(--sans);text-decoration:underline;text-underline-offset:4px;cursor:pointer;min-height:44px;padding:0;display:none}
+#b-form.is-prefilled .linkbtn{display:inline-flex;align-items:center}
+@media(max-width:759px){.flow .row .btn{width:100%}}
+
+/* ---------- Footer: compact logo left, links right, legal line under a hairline ---------- */
+.foot{padding:clamp(36px,4vw,56px) 0 28px}
+.foot__top{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.foot__mark{width:132px;aspect-ratio:1400/350;margin:0;opacity:.95}
+.foot__legal{margin:28px 0 0;padding-top:20px;border-top:1px solid var(--hair);color:var(--ink-soft);font-size:.875rem}
+.foot nav{gap:4px 20px}
+.foot nav a{color:var(--ink-soft);font-size:.9375rem;font-weight:500}
+@media(min-width:760px){.foot__top{flex-direction:row;justify-content:space-between;align-items:center}.foot__mark{width:150px}}
+
+/* ---------- Subheadings: Archivo (the site's headline family), lighter and slightly wide ---------- */
+.hero__sub,.lede,.page-hero p,.close__head .lede{font-family:var(--display);font-stretch:106%;font-weight:500;letter-spacing:-.005em;line-height:1.5}
+.flow__hint,.flow__ok{font-family:var(--display);font-stretch:104%;font-weight:450}
