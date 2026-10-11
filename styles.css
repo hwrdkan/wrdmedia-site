@@ -806,3 +806,29 @@ input:focus,textarea:focus{border-color:#FFFFFF;box-shadow:3px 3px 0 var(--blue)
 
 @media (prefers-reduced-motion:reduce){.btn,.btn--ghost,.linkcard{transition:none}}
 @media (max-width:759px){.card{box-shadow:4px 4px 0 rgba(63,114,217,.7)}.leaks .leak:nth-child(2){box-shadow:4px 4px 0 rgba(216,71,61,.7)}.hero__in>h1,h1{text-shadow:-2px 0 0 var(--red),2px 0 0 var(--blue)}}
+/* ---------- services v2: compact offers with accordions ---------- */
+.offer2{display:grid;gap:clamp(20px,3vw,32px);margin-bottom:32px;padding:clamp(20px,3.5vw,40px)}
+.offer2:last-child{margin-bottom:0}
+.offer2__top{display:grid;gap:24px;grid-template-columns:1fr;align-items:start}
+.offer2__intro{display:grid;gap:14px;max-width:62ch}
+.offer2__intro h3{font-size:clamp(1.5rem,1.2rem + 1.2vw,2.25rem)}
+.offer2 .outcome{color:var(--ink-soft);font-size:1.0625rem}
+.chips{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{padding:6px 14px;border:1px solid var(--hair-strong);border-radius:999px;font-size:.875rem;font-weight:600;color:#fff}
+.offer2__buy{display:grid;gap:16px;align-content:start}
+.offer2__buy .price{margin:0}
+.offer2__acc{border-top:1px solid var(--hair)}
+.acc2{border-bottom:1px solid var(--hair)}
+.acc2>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:12px 4px;font:700 1.0625rem/1.3 var(--sans);color:#fff}
+.acc2>summary::-webkit-details-marker{display:none}
+.acc2>summary::after{content:"+";flex:none;width:28px;height:28px;display:grid;place-items:center;border:2px solid rgba(255,255,255,.7);border-radius:50%;font:700 1.125rem/1 var(--sans);transition:transform .2s var(--ease),background .2s}
+.acc2[open]>summary::after{content:"\2212";background:#fff;color:#0A0B0D;border-color:#fff}
+.acc2>summary:hover{color:#fff}
+.acc2__body{display:grid;gap:16px;padding:4px 4px 24px;animation:fadeUp .3s ease-out both}
+.acc2__body .derisk,.acc2__body .scarce,.acc2__body .needs,.acc2__body .anchor{color:var(--ink-soft);max-width:62ch;margin:0}
+.acc2__body .derisk b,.acc2__body .needs b{color:#fff}
+.acc2__body .tryits{display:grid;gap:24px}
+@media(min-width:900px){.offer2__top{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);column-gap:56px}.offer2__buy{padding-top:6px}}
+@media(prefers-reduced-motion:reduce){.acc2__body{animation:none}}
+/* ---------- home link in the top bar ---------- */
+@media(max-width:759px){.bar__nav,.pagebar .bar__nav{display:flex;margin-left:auto;margin-right:10px}.bar__nav a:not(.nav-home){display:none}.bar__nav .nav-home{min-height:44px;padding:0 10px}}
