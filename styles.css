@@ -859,3 +859,4 @@ a.tryit__launch{text-decoration:none;color:#fff}
   html.mnav-open{overflow:hidden}
 }
 @media(prefers-reduced-motion:reduce){.mnav,.burger span{animation:none;transition:none}}
+@media(max-width:759px){.mnav:not([hidden]){padding-bottom:96px}}
