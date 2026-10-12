@@ -581,3 +581,10 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   document.addEventListener("click", e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
   mq.addEventListener("change", () => setOpen(false));
 })();
+
+
+/* ---------- Open a collapsed section when its link or #hash is used ---------- */
+(function openHash() {
+  function o() { const h = location.hash.slice(1); if (!h) return; const el = document.getElementById(h); if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView({ block: "start" }); } }
+  o(); addEventListener("hashchange", o);
+})();
