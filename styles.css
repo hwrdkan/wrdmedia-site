@@ -835,3 +835,27 @@ input:focus,textarea:focus{border-color:#FFFFFF;box-shadow:3px 3px 0 var(--blue)
 
 /* tool launch cards link to their own pages */
 a.tryit__launch{text-decoration:none;color:#fff}
+
+/* ---------- mobile menu (hamburger + collapsible sections) ---------- */
+.burger{display:none}
+.mnav{display:none}
+@media(max-width:759px){
+  .bar__nav,.pagebar .bar__nav{display:none}
+  .bar .btn--sm,.pagebar .btn--sm{margin-left:auto}
+  .burger{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;flex:none;width:48px;height:48px;margin-left:6px;padding:0;background:#fff;border:2px solid #0A0B0D;border-radius:var(--r);box-shadow:3px 3px 0 var(--blue);cursor:pointer}
+  .burger span{display:block;width:22px;height:2.5px;background:#0A0B0D;border-radius:2px;transition:transform .2s ease,opacity .2s ease}
+  .burger[aria-expanded=true] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .burger[aria-expanded=true] span:nth-child(2){opacity:0}
+  .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .mnav:not([hidden]){display:block;position:fixed;z-index:59;left:0;right:0;top:var(--bar-h,64px);max-height:calc(100dvh - var(--bar-h,64px));overflow-y:auto;overscroll-behavior:contain;padding:8px var(--gutter) 24px;background:#000;border-bottom:3px solid var(--blue);box-shadow:0 6px 0 var(--red);animation:fadeUp .2s ease-out both}
+  .mnav__link,.mnav__sec>summary{display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 4px;color:#fff;font:700 1.125rem/1.2 var(--sans);text-decoration:none;border-bottom:1px solid var(--hair);cursor:pointer;list-style:none}
+  .mnav__sec>summary::-webkit-details-marker{display:none}
+  .mnav__sec>summary::after{content:"+";display:grid;place-items:center;width:28px;height:28px;border:2px solid rgba(255,255,255,.7);border-radius:50%;font:700 1.125rem/1 var(--sans)}
+  .mnav__sec[open]>summary::after{content:"\2212";background:#fff;color:#0A0B0D;border-color:#fff}
+  .mnav__sub{display:grid;padding:4px 0 12px 12px;border-bottom:1px solid var(--hair)}
+  .mnav__sub a{display:flex;align-items:center;min-height:48px;padding:0 4px;color:var(--ink-soft);font-size:1rem;font-weight:500;text-decoration:none}
+  .mnav a[aria-current=page]{color:#fff;text-decoration:underline;text-underline-offset:4px}
+  .mnav__cta{margin-top:20px}
+  html.mnav-open{overflow:hidden}
+}
+@media(prefers-reduced-motion:reduce){.mnav,.burger span{animation:none;transition:none}}

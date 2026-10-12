@@ -501,3 +501,82 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
       });
   });
 })();
+
+/* ---------- Mobile menu: hamburger with collapsible sections ---------- */
+(function mobileMenu() {
+  const bar = document.querySelector("header.bar, header.pagebar");
+  if (!bar) return;
+  const MENU = [
+    { t: "Home", href: "/" },
+    { t: "Services", items: [
+      ["Ascend: Google and AI visibility", "/services/ai-answer-visibility/"],
+      ["Envision: 3D sales tools", "/services/3d-sales-tools/"],
+      ["Architect: marketing director", "/services/marketing-director/"],
+      ["AI receptionist", "/services/ai-phone-assistants/"],
+      ["All services and pricing", "/services/"]
+    ] },
+    { t: "Industries", items: [
+      ["Pergolas and outdoor living", "/pergola-contractor-marketing/"],
+      ["Turf and rubber surfacing", "/turf-contractor-marketing/"],
+      ["Roofing", "/roofing-contractor-marketing/"],
+      ["Fencing", "/fencing-contractor-marketing/"],
+      ["Decks and outdoor kitchens", "/deck-outdoor-kitchen-contractor-marketing/"],
+      ["Pools and spas", "/pool-spa-contractor-marketing/"],
+      ["Concrete and epoxy", "/concrete-epoxy-contractor-marketing/"]
+    ] },
+    { t: "Areas we serve", items: [
+      ["Frisco, TX", "/frisco-tx/"], ["McKinney, TX", "/mckinney-tx/"], ["Prosper, TX", "/prosper-tx/"],
+      ["Plano, TX", "/plano-tx/"], ["Allen, TX", "/allen-tx/"], ["Dallas-Fort Worth", "/dallas-fort-worth/"]
+    ] },
+    { t: "Try the tools", items: [
+      ["3D pergola designer", "/pergola/"],
+      ["Turf photo visualizer", "https://turf.wrdmedia.com/"]
+    ] },
+    { t: "Guides", href: "/guides/" },
+    { t: "About", href: "/about/" },
+    { t: "Contact", href: "/#contact" }
+  ];
+  const path = location.pathname.replace(/\/index\.html$/, "/");
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const cur = h => (h === path ? ' aria-current="page"' : "");
+  let html = "";
+  MENU.forEach(m => {
+    if (m.href) { html += '<a class="mnav__link" href="' + m.href + '"' + cur(m.href) + ">" + esc(m.t) + "</a>"; return; }
+    const open = m.items.some(i => i[1] === path);
+    html += '<details class="mnav__sec" name="mnav"' + (open ? " open" : "") + "><summary>" + esc(m.t) + '</summary><div class="mnav__sub">' +
+      m.items.map(i => '<a href="' + i[1] + '"' + cur(i[1]) + ">" + esc(i[0]) + "</a>").join("") + "</div></details>";
+  });
+  html += '<a class="btn btn--block mnav__cta" href="/#book">Book a Call</a>';
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "burger";
+  btn.setAttribute("aria-label", "Open menu");
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-controls", "mnav");
+  btn.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
+  bar.appendChild(btn);
+
+  const panel = document.createElement("nav");
+  panel.id = "mnav";
+  panel.className = "mnav";
+  panel.setAttribute("aria-label", "Menu");
+  panel.hidden = true;
+  panel.innerHTML = html;
+  bar.insertAdjacentElement("afterend", panel);
+
+  const mq = matchMedia("(min-width:760px)");
+  function setOpen(o) {
+    if (o && mq.matches) return;
+    panel.style.setProperty("--bar-h", bar.getBoundingClientRect().height + "px");
+    panel.hidden = !o;
+    btn.setAttribute("aria-expanded", String(o));
+    btn.setAttribute("aria-label", o ? "Close menu" : "Open menu");
+    document.documentElement.classList.toggle("mnav-open", o);
+  }
+  btn.addEventListener("click", () => setOpen(panel.hidden));
+  panel.addEventListener("click", e => { if (e.target.closest("a")) setOpen(false); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
+  document.addEventListener("click", e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
+  mq.addEventListener("change", () => setOpen(false));
+})();
