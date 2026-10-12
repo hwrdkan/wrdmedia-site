@@ -832,3 +832,6 @@ input:focus,textarea:focus{border-color:#FFFFFF;box-shadow:3px 3px 0 var(--blue)
 @media(prefers-reduced-motion:reduce){.acc2__body{animation:none}}
 /* ---------- home link in the top bar ---------- */
 @media(max-width:759px){.bar__nav,.pagebar .bar__nav{display:flex;margin-left:auto;margin-right:10px}.bar__nav a:not(.nav-home){display:none}.bar__nav .nav-home{min-height:44px;padding:0 10px}}
+
+/* tool launch cards link to their own pages */
+a.tryit__launch{text-decoration:none;color:#fff}
