@@ -457,8 +457,8 @@ main:focus{outline:none}
 
 /* ---------- 3D coverflow (ported from the myagencylogics.com Coverflow3D component) ---------- */
 .cf3d{position:relative;margin-top:clamp(32px,5vw,56px);overflow-x:clip;padding-bottom:8px}
-.cf3d__stage{position:relative;width:84%;max-width:28rem;height:35rem;margin:0 auto}
-@media(min-width:640px){.cf3d__stage{width:100%;height:30rem}}
+.cf3d__stage{position:relative;width:84%;max-width:28rem;height:29rem;margin:0 auto}
+@media(min-width:640px){.cf3d__stage{width:100%;height:24rem}}
 .cf3d__cards{position:absolute;inset:0;perspective:1400px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .cf3d__card{position:absolute;inset:0;isolation:isolate;border-radius:var(--r);background:#050505;border:0;
   transition:transform .5s var(--ease),opacity .5s var(--ease);will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden;cursor:pointer}
@@ -491,7 +491,7 @@ main:focus{outline:none}
 .trystrip .tryit__launch{min-height:200px;padding:24px}
 .trystrip .tryit__launch strong{font-size:clamp(1.25rem,1rem + 1vw,1.625rem)}
 
-@media(max-width:759px){.products__more .btn{width:100%}.cf3d__stage{height:35rem}}
+@media(max-width:759px){.products__more .btn{width:100%}.cf3d__stage{height:29rem}}
 @media(prefers-reduced-motion:reduce){.cf3d__card{transition:opacity .2s}}
 
 /* ---------- Hero headline: three verbs, in caps like the logo ---------- */
@@ -881,3 +881,7 @@ a.tryit__launch{text-decoration:none;color:#fff}
 .part{display:grid;gap:8px;align-content:start;padding:20px;text-decoration:none;color:#fff}
 .part h3{margin:0}
 .part p{margin:0;color:var(--ink-soft)}
+
+/* v11b: slider cards sized to their content (prices removed, so less empty space) */
+@media(max-width:759px){.cf3d__stage{height:24.5rem}}
+@media(min-width:760px){.cf3d__stage{height:20.5rem}}
