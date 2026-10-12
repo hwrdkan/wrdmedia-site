@@ -509,6 +509,7 @@ const dayKey = iso => new Intl.DateTimeFormat("en-CA", { timeZone: CONFIG.timezo
   const MENU = [
     { t: "Home", href: "/" },
     { t: "Services", items: [
+      ["Fractional CMO", "/fractional-cmo/"],
       ["Ascend: Google and AI visibility", "/services/ai-answer-visibility/"],
       ["Envision: 3D sales tools", "/services/3d-sales-tools/"],
       ["Architect: marketing director", "/services/marketing-director/"],
