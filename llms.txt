@@ -1,13 +1,13 @@
 # WRD Media
 
-> WRD Media is a Frisco, Texas company run by Howard Kan. It helps home service and outdoor living businesses build authority on Google and in AI answers (Ascend), sell with interactive 3D design tools (Envision), and run their marketing with a fractional marketing director (Architect). Serving Frisco, McKinney, Prosper, and Dallas-Fort Worth.
+> WRD Media is the practice behind Howard Kan, a fractional CMO for established trade and home-service businesses in Frisco, Texas, DFW, and remote across the US. One engagement covers marketing strategy and direction, AI search visibility (Ascend), and 3D sales tools (Envision), run by Howard directly. Advisor is $4,999 a month and Embedded is $9,999 a month, with a 90-day initial term and 3 clients at a time. A one-hour working session is $250.
 
-## Services
-- [Services overview](https://wrdmedia.com/services/): prices and what is included
-- [Envision: 3D sales tools](https://wrdmedia.com/services/3d-sales-tools/): $5,000 setup plus $500 a month
-- [Ascend: local SEO and AI visibility](https://wrdmedia.com/services/ai-answer-visibility/): $3,000 setup sprint plus $1,000 a month
-- [Architect: marketing director](https://wrdmedia.com/services/marketing-director/): $10,000 a month
-- [AI phone assistants](https://wrdmedia.com/services/ai-phone-assistants/): provided as part of the Architect plan
+## The engagement
+- [Fractional CMO: tiers, what is included, terms](https://wrdmedia.com/services/)
+- [Ascend: AI visibility and SEO/GEO, included in the engagement](https://wrdmedia.com/services/ai-answer-visibility/)
+- [Envision: 3D sales tools, included in the engagement](https://wrdmedia.com/services/3d-sales-tools/)
+- [Architect: CMO strategy and direction, included in the engagement](https://wrdmedia.com/services/marketing-director/)
+- [AI phone assistants: provided inside Embedded engagements when they fit](https://wrdmedia.com/services/ai-phone-assistants/)
 
 ## Local
 - [Frisco, TX](https://wrdmedia.com/frisco-tx/)

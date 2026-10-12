@@ -860,3 +860,24 @@ a.tryit__launch{text-decoration:none;color:#fff}
 }
 @media(prefers-reduced-motion:reduce){.mnav,.burger span{animation:none;transition:none}}
 @media(max-width:759px){.mnav:not([hidden]){padding-bottom:96px}}
+
+/* ---------- v11: fractional CMO offer ---------- */
+.hero__sub{max-width:44ch;margin:0 auto;color:#fff;font-size:clamp(1.0625rem,1rem + .5vw,1.25rem);line-height:1.45;text-align:center}
+.tiers{display:grid;gap:20px;grid-template-columns:1fr;margin-top:24px}
+@media(min-width:900px){.tiers{grid-template-columns:1fr 1fr}}
+.tier{display:grid;gap:14px;align-content:start;padding:clamp(20px,3vw,32px)}
+.tier__price{margin:0;font:800 clamp(2.25rem,1.5rem + 2.6vw,3.25rem)/1 var(--display);font-stretch:112%;letter-spacing:-.03em;color:#fff}
+.tier__price small{font:600 1rem var(--sans);letter-spacing:0;color:var(--ink-soft)}
+.tier__out{margin:0;color:#fff;font-weight:600}
+.tier .ticks{margin:0}
+.tier__plus{font-weight:700;color:#fff}
+.tier__anchor{margin:28px auto 8px;max-width:60ch;text-align:center;font:700 1.125rem/1.4 var(--sans);color:#fff}
+.tier__terms{margin:8px auto;max-width:62ch;text-align:center;color:var(--ink-soft)}
+.tier__terms b{color:#fff}
+.products__more{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.parts__h{margin:48px 0 16px;text-align:center}
+.parts{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:900px){.parts{grid-template-columns:repeat(3,1fr)}}
+.part{display:grid;gap:8px;align-content:start;padding:20px;text-decoration:none;color:#fff}
+.part h3{margin:0}
+.part p{margin:0;color:var(--ink-soft)}
