@@ -1,5 +1,7 @@
 # Resume source map and handoff
 
+October 29 follow-up: Howard requests the complete experience on the page, with no downloads. This supersedes the original download requirements below. Removed download controls, the download collection, runtime PDF filenames, and published PDF assets. Specialty selections now surface six relevant capabilities, open the first two case studies, prioritize experience, and show an experience summary on every role before expansion. Empty screenshot placeholders were removed in favor of readable system descriptions. The original final PDFs remain unchanged in the task's separate source-evidence folder.
+
 Owner: Howard Kan. Prepared by GPT on October 29, 2026.
 
 ## Authority

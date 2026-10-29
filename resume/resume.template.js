@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const lanes = __LANES__;
+  const strengths = __STRENGTHS__;
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => [...document.querySelectorAll(s)];
   let lane = 'ai';
@@ -29,11 +30,14 @@
     $('#focus-label').textContent = `${config.label} focus`;
     $('#focus-headline').textContent = config.headline;
     $('#focus-copy').textContent = config.focus;
-    $('#focus-download').href = `/resume/downloads/${config.file}`;
-    $('#focus-download').setAttribute('aria-label', `Download ${config.label} resume PDF`);
+    $('#focus-strengths').replaceChildren(...strengths[config.skills[0]].map((text) => {
+      const chip = document.createElement('span'); chip.textContent = text; return chip;
+    }));
     reorder('#proof-list', config.proof);
     reorder('#skill-list', config.skills);
     orderRoles();
+    $$('#proof-list details').forEach((r, i) => { r.open = i < 2; });
+    $$('#role-list details').forEach((r, i) => { r.open = i === 0; });
     $('#lane-status').textContent = `${config.label} selected. Work, experience, and skill groups prioritized. All resume facts remain available.`;
     if (updateUrl) {
       const url = new URL(location.href);
@@ -95,7 +99,6 @@
   }
   window.addEventListener('beforeprint', preparePrint);
   window.addEventListener('afterprint', restorePrint);
-  $('#print-resume').addEventListener('click', () => window.print());
   function loadLane() {
     const fromUrl = new URL(location.href).searchParams.get('lane');
     setLane(Object.hasOwn(lanes, fromUrl) ? fromUrl : 'ai', false);
