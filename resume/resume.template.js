@@ -2,6 +2,7 @@
   'use strict';
   const lanes = __LANES__;
   const strengths = __STRENGTHS__;
+  const roles = __ROLES__;
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => [...document.querySelectorAll(s)];
   let lane = 'ai';
@@ -32,6 +33,15 @@
     $('#focus-copy').textContent = config.focus;
     $('#focus-strengths').replaceChildren(...strengths[config.skills[0]].map((text) => {
       const chip = document.createElement('span'); chip.textContent = text; return chip;
+    }));
+    $('#focus-experience').replaceChildren(...config.roles.slice(0,2).map((id) => {
+      const role = roles[id];
+      const card = document.createElement('a');
+      card.className = 'glass experience-snapshot'; card.href = `#role-${id}`;
+      [['span','eyebrow',role.dates],['h3','',role.title],['p','snapshot-company',role.company],['p','',role.bullets[0]],['span','snapshot-link','View experience ↗']].forEach(([tag,cls,text]) => {
+        const node = document.createElement(tag); node.className = cls; node.textContent = text; card.append(node);
+      });
+      return card;
     }));
     reorder('#proof-list', config.proof);
     reorder('#skill-list', config.skills);
